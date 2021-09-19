@@ -4,6 +4,7 @@ namespace App\Entity\User;
 
 use App\Entity\Traits\Email;
 use App\Entity\Traits\Timestamp\Timestamp;
+use App\Entity\Traits\Timestamp\TimestampInterface;
 use App\Entity\Traits\UlidTrait;
 use App\Repository\User\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,7 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, TimestampInterface
 {
     use UlidTrait;
     use Timestamp;
@@ -37,6 +38,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    public static function create(
+        string $email,
+        string $nickname,
+        string $password
+    ): self {
+        $self = new self();
+
+        $self->setEmail($email);
+        $self->setNickname($nickname);
+        $self->setPassword($password);
+        $self->setRoles((array)User::ROLE_USER);
+        //$self->setTimestamps();
+        return $self;
+    }
+
+    public function getNickname(): ?string
+    {
+        return $this->nickname;
+    }
+
+    public function setNickname(?string $nickname): void
+    {
+        $this->nickname = $nickname;
+    }
 
     /**
      * A visual identifier that represents this user.
