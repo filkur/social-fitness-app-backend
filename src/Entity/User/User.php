@@ -30,9 +30,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private ?string $nickname;
 
-    /**
-     * @ORM\Column(type="json")
-     */
     private $roles = [];
 
     /**
