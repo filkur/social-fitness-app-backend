@@ -1,0 +1,45 @@
+#read
+App\Entity\User\User:
+    attributes:
+        formats: [ 'json' ]
+        output: App\DTO\User\Output\UserOutput
+    properties:
+         id:
+                identifier: true
+    collectionOperations:
+        get:
+            path: /user
+            openapi_context:
+                tags:
+                    - User
+    itemOperations:
+        get:
+            path: /user/{id}
+            openapi_context:
+                tags:
+                    - User
+        delete:
+            path: /user/{id}
+            openapi_context:
+                tags:
+                    - User
+#write
+App\DTO\User\Input\UserInput:
+    attributes:
+        formats: [ 'json' ]
+        output: App\DTO\User\Output\UserOutput
+    properties:
+        id:
+            identifier: true
+    collectionOperations:
+        post:
+            path: /user
+            openapi_context:
+                tags:
+                    - User
+    itemOperations:
+        put:
+            path: /user/{id}
+            openapi_context:
+                tags:
+                    - User
