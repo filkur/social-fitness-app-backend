@@ -18,6 +18,11 @@ App\Entity\User\User:
             openapi_context:
                 tags:
                     - User
+        delete:
+            path: /user/{id}
+            openapi_context:
+                tags:
+                    - User
 
 #write
 App\DTO\User\Input\UserInput:
