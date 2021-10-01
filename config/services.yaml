@@ -30,6 +30,15 @@ services:
         resource: '../src/Controller/'
         tags: [ 'controller.service_arguments' ]
 
+    acme_api.event.authentication_success_listener:
+        class: App\EventListener\JWT\AuthenticationSuccessListener
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: onAuthenticationSuccessResponse }
+
+    acme_api.event.jwt_created_listener:
+        class: App\EventListener\JWT\JWTCreatedListener
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJWTCreated }
 
     App\EventListener\PostValidateListener:
         public: true
