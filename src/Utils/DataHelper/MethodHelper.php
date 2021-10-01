@@ -58,6 +58,17 @@ class MethodHelper
         return strpos(strtoupper($methodName), Request::METHOD_PUT) === 0;
     }
 
+    public static function isPatch(array $context): bool
+    {
+        return isset($context["item_operation_name"])
+               && self::isStringPatch($context["item_operation_name"]);
+    }
+
+    public static function isStringPatch(string $methodName): bool
+    {
+        return strpos(strtoupper($methodName), Request::METHOD_PATCH) === 0;
+    }
+
     public static function isRequestDelete(Request $request): bool
     {
         return $request->isMethod(Request::METHOD_DELETE);
@@ -76,5 +87,10 @@ class MethodHelper
     public static function isRequestPut(Request $request): bool
     {
         return $request->isMethod(Request::METHOD_PUT);
+    }
+
+    public static function isRequestPatch(Request $request): bool
+    {
+        return $request->isMethod(Request::METHOD_PATCH);
     }
 }

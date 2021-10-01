@@ -49,7 +49,7 @@ abstract class AllDataProvider extends AbstractRestrictedProvider implements
             return null;
         }
 
-        if (MethodHelper::isPut($context)) {
+        if (MethodHelper::isPut($context) || MethodHelper::isPatch($context)) {
             $this->mutatorAfterReadStorage->setObject($object);
 
             return $this->createDtoObject($object, $context);
