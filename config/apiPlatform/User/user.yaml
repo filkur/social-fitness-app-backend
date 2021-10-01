@@ -37,6 +37,7 @@ App\DTO\User\Input\UserInput:
             path: /user
             denormalization_context:
                 groups: [ 'user:post' ]
+            validation_groups: [ 'user:create' ]
             openapi_context:
                 tags:
                     - User
@@ -45,6 +46,7 @@ App\DTO\User\Input\UserInput:
             path: /user/{id}
             denormalization_context:
                 groups: [ 'user:put' ]
+            validation_groups: [ 'user:update' ]
             openapi_context:
                 tags:
                     - User
@@ -52,6 +54,7 @@ App\DTO\User\Input\UserInput:
             path: /user/{id}
             denormalization_context:
                 groups: [ 'user:patch' ]
+            validation_groups: [ 'user:updatePassword' ]
             openapi_context:
                 tags:
                     - User
