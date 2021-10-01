@@ -146,4 +146,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
         $this->setNickname($nickname);
         $this->setEmail($email);
     }
+
+    public function updatePassword(string $password)
+    {
+        $this->password = $password;
+    }
 }
