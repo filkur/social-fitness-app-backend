@@ -4,7 +4,7 @@ api_platform:
             - '%kernel.project_dir%/config/apiPlatform'
             - '%kernel.project_dir%/src/Entity'
     patch_formats:
-        json: ['application/merge-patch+json']
+        json: [ 'application/json','application/ld+json' ]
     formats:
         jsonld:
             mime_types: [ 'application/ld+json' ]
