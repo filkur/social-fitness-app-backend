@@ -50,7 +50,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
         $self->setNickname($nickname);
         $self->setPassword($password);
         $self->setRoles((array)User::ROLE_USER);
-        //$self->setTimestamps();
         return $self;
     }
 
