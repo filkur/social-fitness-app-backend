@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Factory\User;
+namespace App\Factory\User;
 
+use App\DTO\User\Input\UserInput;
 use App\Entity\User\User;
 
 class UserFactory
@@ -17,6 +18,16 @@ class UserFactory
             $email,
             $nickname,
             $password
+        );
+    }
+
+    public static function createFromUserInput(
+        UserInput $userInput
+    ): User {
+        return self::createFromParams(
+            $userInput->email,
+            $userInput->nickname,
+            $userInput->password
         );
     }
 }
