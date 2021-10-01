@@ -60,6 +60,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
 
     public function setNickname(?string $nickname): void
     {
+        if ($nickname === null){
+            return;
+        }
         $this->nickname = $nickname;
     }
 
@@ -133,5 +136,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function update(
+        ?string $nickname,
+        ?string $email
+    ): void
+    {
+        $this->setNickname($nickname);
+        $this->setEmail($email);
     }
 }
