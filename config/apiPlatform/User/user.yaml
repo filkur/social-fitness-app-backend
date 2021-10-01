@@ -4,8 +4,8 @@ App\Entity\User\User:
         formats: [ 'json' ]
         output: App\DTO\User\Output\UserOutput
     properties:
-         id:
-                identifier: true
+        id:
+            identifier: true
     collectionOperations:
         get:
             path: /user
@@ -14,11 +14,6 @@ App\Entity\User\User:
                     - User
     itemOperations:
         get:
-            path: /user/{id}
-            openapi_context:
-                tags:
-                    - User
-        delete:
             path: /user/{id}
             openapi_context:
                 tags:
@@ -37,9 +32,4 @@ App\DTO\User\Input\UserInput:
             openapi_context:
                 tags:
                     - User
-    itemOperations:
-        put:
-            path: /user/{id}
-            openapi_context:
-                tags:
-                    - User
+    itemOperations: {}
