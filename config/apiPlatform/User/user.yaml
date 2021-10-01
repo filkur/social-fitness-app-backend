@@ -30,12 +30,23 @@ App\DTO\User\Input\UserInput:
     collectionOperations:
         post:
             path: /user
+            denormalization_context:
+                groups: [ 'user:post' ]
             openapi_context:
                 tags:
                     - User
     itemOperations:
         put:
             path: /user/{id}
+            denormalization_context:
+                groups: [ 'user:put' ]
+            openapi_context:
+                tags:
+                    - User
+        patch:
+            path: /user/{id}
+            denormalization_context:
+                groups: [ 'user:patch' ]
             openapi_context:
                 tags:
                     - User
