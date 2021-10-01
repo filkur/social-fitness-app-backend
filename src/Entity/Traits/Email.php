@@ -22,8 +22,12 @@ trait Email
         return $this->email;
     }
 
-    public function setEmail(string $email): void
+    public function setEmail(?string $email): void
     {
+        if ($email === null){
+            return;
+        }
+
         $this->email = $email;
     }
 }
