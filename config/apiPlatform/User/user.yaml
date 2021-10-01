@@ -18,6 +18,7 @@ App\Entity\User\User:
             openapi_context:
                 tags:
                     - User
+
 #write
 App\DTO\User\Input\UserInput:
     attributes:
@@ -32,4 +33,9 @@ App\DTO\User\Input\UserInput:
             openapi_context:
                 tags:
                     - User
-    itemOperations: {}
+    itemOperations:
+        put:
+            path: /user/{id}
+            openapi_context:
+                tags:
+                    - User
