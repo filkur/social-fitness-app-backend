@@ -29,7 +29,6 @@ class UserPasswordEncoderEventSubscriber implements EventSubscriberInterface
     {
         return [
             Events::prePersist => 'prePersist',
-            Events::preUpdate  => 'preUpdate',
         ];
     }
 
