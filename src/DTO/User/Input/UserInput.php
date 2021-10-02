@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace App\DTO\User\Input;
 
 use App\Entity\User\User;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Validator\Password\IsPasswordCorrect as isPasswordCorrectAssert;
 use App\Validator\Email\UniqueEmail as UniqueEmailValidator;
 use App\Validator\Nickname\UniqueNickname as UniqueNicknameValidator;
+use App\Validator\Password\IsPasswordCorrect as IsPasswordCorrectValidator;
 
 class UserInput
 {
@@ -53,12 +52,32 @@ class UserInput
     public ?string $email = null;
 
     /**
-     * @Groups({"user:post","user:put", "user:patch"})
+     * @Groups({"user:post", "user:put", "user:patch"})
+     * @Assert\NotBlank(
+     *     groups={ "user:post", "user:update", "updatePassword" }
+     * )
+     * @Assert\Length(
+     *     max=50,
+     *     groups={ "user:post", "user:update", "updatePassword" }
+     * )
+     * @IsPasswordCorrectValidator(
+     *     groups={ "user:update" }
+     * )
      */
     public ?string $password = null;
 
     /**
      * @Groups({"user:patch"})
+     * @Assert\NotBlank(
+     *     groups={ "user:updatePassword" }
+     * )
+     * @Assert\Length(
+     *     max=50,
+     *     groups={ "user:updatePassword" }
+     * )
+     * @IsPasswordCorrectValidator(
+     *     groups={ "user:updatePassword" }
+     * )
      */
     public ?string $oldPassword = null;
 
