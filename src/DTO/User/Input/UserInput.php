@@ -24,12 +24,29 @@ class UserInput
      * @UniqueNicknameValidator(
      *     groups= {"user:create", "user:update"}
      * )
+     * @Assert\NotBlank(
+     *     groups= {"user:create", "user:update"}
+     * )
+     * @Assert\Length(
+     *     max=50,
+     *     groups= {"user:create", "user:update"}
+     * )
      */
     public ?string $nickname = null;
 
     /**
      * @Groups({"user:post", "user:put"})
      * @UniqueEmailValidator(
+     *     groups= {"user:create", "user:update"}
+     * )
+     * @Assert\Email(
+     *     groups= {"user:create", "user:update"}
+     * )
+     * @Assert\NotBlank(
+     *     groups= {"user:create", "user:update"}
+     * )
+     * @Assert\Length(
+     *     max=50,
      *     groups= {"user:create", "user:update"}
      * )
      */
