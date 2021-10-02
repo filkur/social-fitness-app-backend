@@ -32,12 +32,10 @@ class IsPasswordCorrectValidator extends ConstraintValidator
         $user = $this->userGetter->get();
         $userPassword = $user->getPassword();
 
-        $passwordInput = $this->passwordHasherFactory->getPasswordHasher($user)
-                                                     ->hash(
-                                                         $value
-                                                     );
+        $checkPasswordResult = ($this->passwordHasherFactory->getPasswordHasher($user)
+                                                            ->verify($userPassword, $value));
 
-        if ($passwordInput === $userPassword) {
+        if ($checkPasswordResult) {
             return;
         }
 

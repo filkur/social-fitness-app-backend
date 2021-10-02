@@ -11,5 +11,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class IsPasswordCorrect extends Constraint
 {
-    public $message = "Incorrect password";
+    public string $message = "Incorrect password";
 }
