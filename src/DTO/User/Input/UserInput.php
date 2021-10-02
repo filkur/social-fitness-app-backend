@@ -19,7 +19,7 @@ class UserInput
     public ?string $id = null;
 
     /**
-     * @Groups({"user:post", "user:put"})
+     * @Groups({"user:post", "user:patch"})
      * @UniqueNicknameValidator(
      *     groups= {"user:create", "user:update"}
      * )
@@ -34,7 +34,7 @@ class UserInput
     public ?string $nickname = null;
 
     /**
-     * @Groups({"user:post", "user:put"})
+     * @Groups({"user:post", "user:patch"})
      * @UniqueEmailValidator(
      *     groups= {"user:create", "user:update"}
      * )
@@ -54,11 +54,11 @@ class UserInput
     /**
      * @Groups({"user:post", "user:put", "user:patch"})
      * @Assert\NotBlank(
-     *     groups={ "user:post", "user:update", "updatePassword" }
+     *     groups={ "user:create", "user:update", "updatePassword" }
      * )
      * @Assert\Length(
      *     max=50,
-     *     groups={ "user:post", "user:update", "updatePassword" }
+     *     groups={ "user:create", "user:update", "updatePassword" }
      * )
      * @IsPasswordCorrectValidator(
      *     groups={ "user:update" }
@@ -67,7 +67,7 @@ class UserInput
     public ?string $password = null;
 
     /**
-     * @Groups({"user:patch"})
+     * @Groups({"user:put"})
      * @Assert\NotBlank(
      *     groups={ "user:updatePassword" }
      * )

@@ -6,7 +6,6 @@ namespace App\Service\Password;
 
 use App\DTO\User\Input\UserInput;
 use App\Entity\User\User;
-use App\Utils\User\UserGetter;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 
 class UpdatePasswordService
