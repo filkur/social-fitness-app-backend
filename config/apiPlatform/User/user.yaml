@@ -1,0 +1,60 @@
+#read
+App\Entity\User\User:
+    attributes:
+        formats: [ 'json' ]
+        output: App\DTO\User\Output\UserOutput
+    properties:
+        id:
+            identifier: true
+    collectionOperations:
+        get:
+            path: /user
+            openapi_context:
+                tags:
+                    - User
+    itemOperations:
+        get:
+            path: /user/{id}
+            openapi_context:
+                tags:
+                    - User
+        delete:
+            path: /user/{id}
+            openapi_context:
+                tags:
+                    - User
+
+#write
+App\DTO\User\Input\UserInput:
+    attributes:
+        formats: [ 'json' ]
+        output: App\DTO\User\Output\UserOutput
+    properties:
+        id:
+            identifier: true
+    collectionOperations:
+        post:
+            path: /user
+            denormalization_context:
+                groups: [ 'user:post' ]
+            validation_groups: [ 'user:create' ]
+            openapi_context:
+                tags:
+                    - User
+    itemOperations:
+        put:
+            path: /user/{id}
+            denormalization_context:
+                groups: [ 'user:put' ]
+            validation_groups: [ 'user:updatePassword' ]
+            openapi_context:
+                tags:
+                    - User
+        patch:
+            path: /user/{id}
+            denormalization_context:
+                groups: [ 'user:patch' ]
+            validation_groups: [ 'user:update' ]
+            openapi_context:
+                tags:
+                    - User
