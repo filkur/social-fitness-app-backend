@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\DataFixtures\User;
+namespace App\ DataFixtures\User;
 
 use App\Factory\User\UserFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;

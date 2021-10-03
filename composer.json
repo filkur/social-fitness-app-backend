@@ -59,7 +59,11 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "doctrine:database:drop --if-exists --force": "symfony-cmd",
+            "doctrine:database:create": "symfony-cmd",
+            "doctrine:migrations:migrate": "symfony-cmd",
+            "doctrine:fixtures:load": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
