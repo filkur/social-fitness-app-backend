@@ -34,7 +34,7 @@ App\DTO\User\Input\UserInput:
             identifier: true
     collectionOperations:
         post:
-            path: /user
+            path: /register
             denormalization_context:
                 groups: [ 'user:post' ]
             validation_groups: [ 'user:create' ]
