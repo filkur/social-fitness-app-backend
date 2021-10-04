@@ -97,10 +97,5 @@
       <path value="$PROJECT_DIR$/vendor/gesdinet/jwt-refresh-token-bundle" />
     </include_path>
   </component>
-<<<<<<< HEAD
-=======
-  <component name="PhpProjectSharedConfiguration" php_language_level="7.4">
-    <option name="suggestChangeDefaultLanguageLevel" value="false" />
-  </component>
->>>>>>> origin/main
+  <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />
 </project>
