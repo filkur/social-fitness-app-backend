@@ -1,6 +1,6 @@
 doctrine:
     dbal:
-        default_connection: postgres
+        default_connection: default
         connections:
             postgres:
                 url: '%env(resolve:DATABASE_URL)%'
@@ -11,15 +11,13 @@ doctrine:
         # either here or in the DATABASE_URL env var (see .env file)
         #server_version: '13'
     orm:
-        default_entity_manager: postgres
-        entity_managers:
-            postgres:
-                connection: postgres
-                auto_mapping: true
-                mappings:
-                    App:
-                        is_bundle: false
-                        type: annotation
-                        dir: '%kernel.project_dir%/src/Entity'
-                        prefix: 'App\Entity'
-                        alias: App
+        auto_generate_proxy_classes: '%kernel.debug%'
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+        mappings:
+            App:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Entity'
+                prefix: 'AppEntity'
+                alias: App
