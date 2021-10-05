@@ -1,5 +1,6 @@
 doctrine:
     orm:
+        default_entity_manager: 'postgres'
         auto_generate_proxy_classes: false
         query_cache_driver:
             type: pool
