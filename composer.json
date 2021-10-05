@@ -64,7 +64,7 @@
             "assets:install %PUBLIC_DIR%": "symfony-cmd",
             "doctrine:migrations:migrate": "symfony-cmd",
             "lexik:jwt:generate-keypair --overwrite": "symfony-cmd",
-            "requirements-checker": "script",
+            "requirements-checker": "script"
         },
         "post-install-cmd": [
             "@auto-scripts"
