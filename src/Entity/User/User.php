@@ -3,8 +3,6 @@
 namespace App\Entity\User;
 
 use App\Entity\Traits\Email;
-use App\Entity\Traits\Timestamp\Timestamp;
-use App\Entity\Traits\Timestamp\TimestampInterface;
 use App\Entity\Traits\UlidTrait;
 use App\Repository\User\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,10 +15,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *     )
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class User implements UserInterface, PasswordAuthenticatedUserInterface, TimestampInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use UlidTrait;
-    use Timestamp;
     use Email;
 
     public const ROLE_USER = "ROLE_USER";
@@ -53,6 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
         $self->setNickname($nickname);
         $self->setPassword($password);
         $self->setRoles((array)User::ROLE_USER);
+
         return $self;
     }
 
@@ -63,7 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
 
     public function setNickname(?string $nickname): void
     {
-        if ($nickname === null){
+        if ($nickname === null) {
             return;
         }
         $this->nickname = $nickname;
@@ -144,8 +142,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
     public function update(
         ?string $nickname,
         ?string $email
-    ): void
-    {
+    ): void {
         $this->setNickname($nickname);
         $this->setEmail($email);
     }

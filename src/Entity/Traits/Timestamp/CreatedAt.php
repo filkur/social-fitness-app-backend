@@ -12,7 +12,8 @@ trait CreatedAt
     /**
      * @ORM\Column(
      *     type="datetime_immutable",
-     *     options={ "default" : "CURRENT_TIMESTAMP" }
+     *     options={ "default" : "CURRENT_TIMESTAMP" },
+     *     name="createdat"
      * )
      */
     protected DateTimeImmutable $createdAt;
