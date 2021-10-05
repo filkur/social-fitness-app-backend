@@ -61,9 +61,6 @@
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd",
-            "doctrine:schema:drop --force": "symfony-cmd",
-            "doctrine:migrations:migrate": "symfony-cmd",
-            "lexik:jwt:generate-keypair --overwrite": "symfony-cmd",
             "requirements-checker": "script"
         },
         "post-install-cmd": [
