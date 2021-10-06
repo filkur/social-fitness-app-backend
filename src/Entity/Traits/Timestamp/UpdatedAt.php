@@ -13,7 +13,7 @@ trait UpdatedAt
      * @ORM\Column(
      *     type="datetime_immutable",
      *     options={ "default" : "CURRENT_TIMESTAMP" },
-     *     name="updatedat"
+     *     name="updated_at"
      * )
      */
     protected DateTimeImmutable $updatedAt;
