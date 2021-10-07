@@ -21,8 +21,8 @@ class AuthenticationSuccessListener
             return;
         }
 
-        $data['userId'] = $user->getIdString();
-        $data['userNickname'] = $user->getNickname();
+        $data['id'] = $user->getIdString();
+        $data['nickname'] = $user->getNickname();
 
         $event->setData($data);
     }

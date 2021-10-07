@@ -32,8 +32,8 @@ class JWTCreatedListener
             throw new InvalidArgumentException("User not found");
         }
 
-        $payload['userId'] = $user->getIdString();
-        $payload['userNickname'] = $user->getNickname();
+        $payload['id'] = $user->getIdString();
+        $payload['nickname'] = $user->getNickname();
         $jwtCreatedEvent->setData($payload);
     }
 
