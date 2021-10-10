@@ -33,6 +33,7 @@ class JWTCreatedListener
         }
 
         $payload['id'] = $user->getIdString();
+        $payload['email'] = $user->getEmail();
         $payload['nickname'] = $user->getNickname();
         $jwtCreatedEvent->setData($payload);
     }
