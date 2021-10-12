@@ -1,0 +1,45 @@
+#read
+App\Entity\Group\Group:
+    attributes:
+        formats: [ 'json' ]
+        output: App\DTO\Group\Output\GroupOutput
+    properties:
+        id:
+            identifier: true
+    collectionOperations:
+        get:
+            path: /group
+            openapi_context:
+                tags:
+                    - Group
+    itemOperations:
+        get:
+            path: /group/{id}
+            openapi_context:
+                tags:
+                    - Group
+        delete:
+            path: /group/{id}
+            openapi_context:
+                tags:
+                    - Group
+#write
+App\DTO\Group\Input\GroupInput:
+    attributes:
+        formats: [ 'json' ]
+        output: App\DTO\Group\Output\GroupOutput
+    properties:
+        id:
+            identifier: true
+    itemOperations:
+        put:
+            path: /group/{id}
+            openapi_context:
+                tags:
+                    - Group
+    collectionOperations:
+        post:
+            path: /group
+            openapi_context:
+                tags:
+                    - Group
