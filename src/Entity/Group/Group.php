@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Group;
 
+use App\Entity\Invitation\Invitation;
 use App\Entity\Traits\Timestamp\Timestamp;
 use App\Entity\Traits\Timestamp\TimestampInterface;
 use App\Entity\Traits\UlidTrait;
@@ -55,6 +56,14 @@ class Group implements TimestampInterface
      * )
      */
     private Collection $groupMembers;
+
+    /**
+     * @ORM\OneToOne(
+     *     targetEntity=Invitation::class,
+     *     mappedBy="invitation"
+     * )
+     */
+    private ?Invitation $invitation = null;
 
     public function __construct()
     {
