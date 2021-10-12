@@ -7,9 +7,13 @@ use App\Entity\Traits\Timestamp\Timestamp;
 use App\Entity\Traits\Timestamp\TimestampInterface;
 use App\Entity\Traits\UlidTrait;
 use App\Repository\User\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use App\Entity\Group\Group;
+use App\Entity\GroupMember\GroupMember;
 
 /**
  * @ORM\Table(
@@ -42,6 +46,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
      */
     private $password;
 
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity=Group::class,
+     *     mappedBy="owner"
+     * )
+     */
+    private Collection $groups;
+
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity=GroupMember::class,
+     *     mappedBy="user"
+     * )
+     */
+    private Collection $groupMembers;
+
+    public function __construct()
+    {
+        $this->groups = new ArrayCollection();
+        $this->groupMembers = new ArrayCollection();
+    }
+
     public static function create(
         string $email,
         string $nickname,
@@ -53,6 +79,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
         $self->setNickname($nickname);
         $self->setPassword($password);
         $self->setRoles((array)User::ROLE_USER);
+
         return $self;
     }
 
@@ -63,7 +90,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
 
     public function setNickname(?string $nickname): void
     {
-        if ($nickname === null){
+        if ($nickname === null) {
             return;
         }
         $this->nickname = $nickname;
@@ -144,8 +171,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
     public function update(
         ?string $nickname,
         ?string $email
-    ): void
-    {
+    ): void {
         $this->setNickname($nickname);
         $this->setEmail($email);
     }
