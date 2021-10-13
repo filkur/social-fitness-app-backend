@@ -23,6 +23,7 @@ class GroupPostValidateTransformer extends AbstractValidateTransformer
         ContainerInterface $container,
         UserGetter $userGetter
     ) {
+        parent::__construct($mutatorAfterReadStorage, $container);
         $this->userGetter = $userGetter;
     }
 
