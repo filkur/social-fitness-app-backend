@@ -40,6 +40,20 @@ class Invitation implements TimestampInterface
      */
     private ?Group $group = null;
 
+    public static function create(
+        Group $group,
+        string $code
+    ): self {
+        $self = new self();
+
+        $self->setCode($code);
+        $self->setGroup($group);
+
+        $group->addInvitation($self);
+
+        return $self;
+    }
+
     public function getCode(): string
     {
         return $this->code;
@@ -48,5 +62,15 @@ class Invitation implements TimestampInterface
     public function setCode(string $code): void
     {
         $this->code = $code;
+    }
+
+    public function getGroup(): ?Group
+    {
+        return $this->group;
+    }
+
+    public function setGroup(?Group $group): void
+    {
+        $this->group = $group;
     }
 }
