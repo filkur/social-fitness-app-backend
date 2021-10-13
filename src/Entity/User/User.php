@@ -17,8 +17,8 @@ use App\Entity\GroupMember\GroupMember;
 
 /**
  * @ORM\Table(
- * name = "users"
- *     )
+ *      name = "users"
+ * )
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface, TimestampInterface
@@ -179,5 +179,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
     public function updatePassword(string $password)
     {
         $this->password = $password;
+    }
+
+    public function addGroup(Group $group): void
+    {
+        $this->groups->add($group);
     }
 }
