@@ -32,14 +32,18 @@ App\DTO\Group\Input\GroupInput:
         id:
             identifier: true
     itemOperations:
-        put:
+        patch:
             path: /group/{id}
+            denormalization_context:
+                groups: [ 'group:patch' ]
             openapi_context:
                 tags:
                     - Group
     collectionOperations:
         post:
             path: /group
+            denormalization_context:
+                groups: [ 'group:post' ]
             openapi_context:
                 tags:
                     - Group
