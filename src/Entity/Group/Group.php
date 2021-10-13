@@ -133,4 +133,9 @@ class Group implements TimestampInterface
     {
         $this->owner = $owner;
     }
+
+    public function addInvitation(Invitation $invitation): void
+    {
+        $this->invitation = $invitation;
+    }
 }
