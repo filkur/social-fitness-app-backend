@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\GroupMember\GroupMemberRepository;
 
 /**
+ * @ORM\Table(
+ *     name="group_member"
+ * )
  * @ORM\Entity(
  *     repositoryClass=GroupMemberRepository::class
  * )
@@ -23,7 +26,7 @@ class GroupMember
     /**
      * @ORM\ManyToOne(
      *     targetEntity=User::class,
-     *     inversedBy="groupMember"
+     *     inversedBy="groupMembers"
      * )
      */
     private User $user;
@@ -38,7 +41,8 @@ class GroupMember
 
     /**
      * @ORM\Column(
-     *     type="datetime_immutable"
+     *     type="datetime_immutable",
+     *     name="assigned_at"
      * )
      */
     private DateTimeImmutable $assignedAt;

@@ -9,8 +9,12 @@ use App\Entity\Traits\Timestamp\Timestamp;
 use App\Entity\Traits\Timestamp\TimestampInterface;
 use App\Entity\Traits\UlidTrait;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\Invitation\InvitationRepository;
 
 /**
+ * @ORM\Table(
+ *     name="invitation"
+ * )
  * @ORM\Entity(
  *     repositoryClass=InvitationRepository::class
  * )
@@ -26,7 +30,7 @@ class Invitation implements TimestampInterface
      *     length=8
      * )
      */
-    private string $code;
+    private ?string $code = null;
 
     /**
      * @ORM\OneToOne(
@@ -34,5 +38,15 @@ class Invitation implements TimestampInterface
      *     inversedBy="invitation"
      * )
      */
-    private Group $group;
+    private ?Group $group = null;
+
+    public function getCode(): string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): void
+    {
+        $this->code = $code;
+    }
 }
