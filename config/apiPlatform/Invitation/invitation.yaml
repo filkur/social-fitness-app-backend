@@ -1,0 +1,45 @@
+#read
+App\Entity\Invitation\Invitation:
+    attributes:
+        formats: [ 'json' ]
+        output: App\DTO\Invitation\Output\InvitationOutput
+    properties:
+        id:
+            identifier: true
+    collectionOperations:
+        get:
+            path: /invitation
+            openapi_context:
+                tags:
+                    - Invitation
+    itemOperations:
+        get:
+            path: /invitation/{id}
+            openapi_context:
+                tags:
+                    - Invitation
+        delete:
+            path: /invitation/{id}
+            openapi_context:
+                tags:
+                    - Invitation
+#write
+App\DTO\Invitation\Input\InvitationInput:
+    attributes:
+        formats: [ 'json' ]
+        output: App\DTO\Invitation\Output\InvitationOutput
+    properties:
+        id:
+            identifier: true
+    collectionOperations:
+        post:
+            path: /invitation
+            openapi_context:
+                tags:
+                    - Invitation
+    itemOperations:
+        patch:
+            path: /invitation/{id}
+            openapi_context:
+                tags:
+                    - Invitation

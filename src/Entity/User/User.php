@@ -5,14 +5,18 @@ namespace App\Entity\User;
 use App\Entity\Traits\Email;
 use App\Entity\Traits\UlidTrait;
 use App\Repository\User\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use App\Entity\Group\Group;
+use App\Entity\GroupMember\GroupMember;
 
 /**
  * @ORM\Table(
- * name = "users"
- *     )
+ *      name = "users"
+ * )
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -38,6 +42,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity=Group::class,
+     *     mappedBy="owner"
+     * )
+     */
+    private Collection $groups;
+
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity=GroupMember::class,
+     *     mappedBy="user"
+     * )
+     */
+    private Collection $groupMembers;
+
+    public function __construct()
+    {
+        $this->groups = new ArrayCollection();
+        $this->groupMembers = new ArrayCollection();
+    }
 
     public static function create(
         string $email,
@@ -150,5 +176,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function updatePassword(string $password)
     {
         $this->password = $password;
+    }
+
+    public function addGroup(Group $group): void
+    {
+        $this->groups->add($group);
+    }
+
+    public function getGroups()
+    {
+        return $this->groups;
     }
 }

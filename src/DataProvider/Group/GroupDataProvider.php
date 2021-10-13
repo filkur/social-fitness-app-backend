@@ -2,49 +2,50 @@
 
 declare(strict_types=1);
 
-namespace App\DataProvider\User;
+namespace App\ DataProvider\Group;
 
 use App\DataProvider\Utils\AllDataProvider;
-use App\DTO\User\Input\UserInput;
-use App\Entity\User\User;
-use App\Repository\User\UserRepository;
+use App\DTO\Group\Input\GroupInput;
+use App\Entity\Group\Group;
+use App\Repository\Group\GroupRepository;
 use App\Utils\ApiPlatform\ApiPlatformCollectionFilter;
 use App\Utils\ReadStorage\MutatorAfterReadStorage;
 use Doctrine\ORM\QueryBuilder;
 
-class UserDataProvider extends AllDataProvider
+class GroupDataProvider extends AllDataProvider
 {
-    private UserRepository $userRepository;
+    private GroupRepository $groupRepository;
 
     public function __construct(
         ApiPlatformCollectionFilter $apiPlatformCollectionFilter,
         MutatorAfterReadStorage $mutatorAfterReadStorage,
-        UserRepository $userRepository
-    ) {
+        GroupRepository $groupRepository
+    )
+    {
         parent::__construct($apiPlatformCollectionFilter, $mutatorAfterReadStorage);
-        $this->userRepository = $userRepository;
+        $this->groupRepository = $groupRepository;
     }
 
     protected function isValidResourceClass(string $resource): bool
     {
-        return $resource === User::class || $resource === UserInput::class;
+        return $resource === Group::class || $resource === GroupInput::class;
     }
 
     /**
-     * @param User $object
+     * @param Group $object
      */
     protected function createDtoObject(object $object, array $context): object
     {
-        return UserInput::createFromEntity($object);
+        return GroupInput::createFromEntity($object);
     }
 
     protected function findObject($id): ?object
     {
-        return $this->userRepository->find($id);
+        return $this->groupRepository->find($id);
     }
 
     protected function getQueryBuilder(): QueryBuilder
     {
-        return $this->userRepository->createQueryBuilder('users');
+        return $this->groupRepository->createQueryBuilder('groups');
     }
 }
