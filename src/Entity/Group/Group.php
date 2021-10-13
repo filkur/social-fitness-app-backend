@@ -16,6 +16,9 @@ use App\Repository\Group\GroupRepository;
 use App\Entity\GroupMember\GroupMember;
 
 /**
+ * @ORM\Table(
+ *     name="groups"
+ * )
  * @ORM\Entity(
  *     repositoryClass=GroupRepository::class
  * )
@@ -60,7 +63,7 @@ class Group implements TimestampInterface
     /**
      * @ORM\OneToOne(
      *     targetEntity=Invitation::class,
-     *     mappedBy="invitation"
+     *     mappedBy="group"
      * )
      */
     private ?Invitation $invitation = null;
@@ -68,5 +71,66 @@ class Group implements TimestampInterface
     public function __construct()
     {
         $this->groupMembers = new ArrayCollection();
+    }
+
+    public static function create(
+        User $owner,
+        string $name,
+        string $description
+    ): self {
+        $self = new self();
+
+        $self->setOwner($owner);
+        $self->setDescription($description);
+        $self->setName($name);
+
+        $owner->addGroup($self);
+
+        return $self;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function getOwner(): User
+    {
+        return $this->owner;
+    }
+
+    public function getGroupMembers(): ArrayCollection
+    {
+        return $this->groupMembers;
+    }
+
+    public function getGroupMembersArray(): array
+    {
+        return $this->groupMembers->toArray();
+    }
+
+    public function getInvitation(): ?Invitation
+    {
+        return $this->invitation;
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
+    public function setOwner(User $owner): void
+    {
+        $this->owner = $owner;
     }
 }
