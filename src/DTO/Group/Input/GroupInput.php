@@ -7,11 +7,13 @@ namespace App\DTO\Group\Input;
 use App\Entity\Group\Group;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\Group\GroupOwner as OwnerAssert;
 
 class GroupInput
 {
     /**
      * @Groups({"group:patch"})
+     * @OwnerAssert()
      */
     public ?string $id = null;
 
