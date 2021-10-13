@@ -46,6 +46,6 @@ class GroupDataProvider extends AllDataProvider
 
     protected function getQueryBuilder(): QueryBuilder
     {
-        return $this->groupRepository->createQueryBuilder('group');
+        return $this->groupRepository->createQueryBuilder('groups');
     }
 }

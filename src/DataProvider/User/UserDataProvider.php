@@ -45,6 +45,6 @@ class UserDataProvider extends AllDataProvider
 
     protected function getQueryBuilder(): QueryBuilder
     {
-        return $this->userRepository->createQueryBuilder('user');
+        return $this->userRepository->createQueryBuilder('users');
     }
 }
