@@ -185,4 +185,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
     {
         $this->groups->add($group);
     }
+
+    public function getGroups()
+    {
+        return $this->groups;
+    }
 }
