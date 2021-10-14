@@ -9,6 +9,7 @@ use App\DTO\Group\Output\GroupOutput;
 use App\DTO\Invitation\Output\InvitationOutput;
 use App\DTO\User\Output\UserOutput;
 use App\Entity\Group\Group;
+use App\Utils\Date\DateHelper;
 
 class GroupDataTransformer implements DataTransformerInterface
 {
@@ -26,7 +27,16 @@ class GroupDataTransformer implements DataTransformerInterface
         $output->name = $object->getName();
         $output->description = $object->getDescription();
         $output->groupMembers = $object->getGroupMembersArray();
-        if ($object->getInvitation() === null){
+
+        $output->createdAt = DateHelper::toDateFormat(
+            $object->getCreatedAt()
+        );
+
+        $output->updatedAt = DateHelper::toDateFormat(
+            $object->getUpdatedAt()
+        );
+
+        if ($object->getInvitation() === null) {
             return $output;
         }
         $output->invitation = InvitationOutput::createFromInvitation(
@@ -35,7 +45,6 @@ class GroupDataTransformer implements DataTransformerInterface
 
         return $output;
     }
-
 
     public function supportsTransformation($data, string $to, array $context = []): bool
     {
