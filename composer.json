@@ -7,6 +7,7 @@
         "php": "~7.4.23",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-json": "*",
         "api-platform/core": "^2.6",
         "composer/package-versions-deprecated": "1.11.99.4",
         "doctrine/annotations": "^1.0",
@@ -16,6 +17,7 @@
         "lexik/jwt-authentication-bundle": "^2.13",
         "nelmio/cors-bundle": "^2.1",
         "phpdocumentor/reflection-docblock": "^5.2",
+        "ramsey/uuid": "^4.2",
         "symfony/asset": "5.3.*",
         "symfony/console": "5.3.*",
         "symfony/dotenv": "5.3.*",
@@ -31,8 +33,7 @@
         "symfony/twig-bundle": "5.3.*",
         "symfony/uid": "5.3.*",
         "symfony/validator": "5.3.*",
-        "symfony/yaml": "5.3.*",
-        "ext-json": "*"
+        "symfony/yaml": "5.3.*"
     },
     "config": {
         "optimize-autoloader": true,

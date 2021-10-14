@@ -12,7 +12,7 @@ use App\Utils\ReadStorage\MutatorAfterReadStorage;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class InvitationValidateTransformer extends AbstractValidateTransformer
+class InvitationPostValidateTransformer extends AbstractValidateTransformer
 {
     private CreateInvitationService $createInvitationService;
 
@@ -40,6 +40,6 @@ class InvitationValidateTransformer extends AbstractValidateTransformer
      */
     protected function transform(object $payload): object
     {
-        return $this->createInvitationService->create($payload);
+        return $this->createInvitationService->createInvitation($payload);
     }
 }
