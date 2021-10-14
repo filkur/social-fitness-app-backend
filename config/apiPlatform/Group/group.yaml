@@ -36,6 +36,7 @@ App\DTO\Group\Input\GroupInput:
             path: /group/{id}
             denormalization_context:
                 groups: [ 'group:patch' ]
+            validation_groups: [ 'group:update' ]
             openapi_context:
                 tags:
                     - Group
@@ -44,6 +45,7 @@ App\DTO\Group\Input\GroupInput:
             path: /group
             denormalization_context:
                 groups: [ 'group:post' ]
+            validation_groups: [ 'group:create' ]
             openapi_context:
                 tags:
                     - Group

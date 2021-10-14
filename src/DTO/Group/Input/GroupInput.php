@@ -13,17 +13,23 @@ class GroupInput
 {
     /**
      * @Groups({"group:patch"})
-     * @OwnerAssert()
+     * @OwnerAssert(
+     *     groups = {"group:update"}
+     * )
      */
     public ?string $id = null;
 
     /**
      * @Groups({"group:post", "group:patch"})
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(
+     *     groups = {"group:create", "group:update"}
+     * )
      * @Assert\Length(
+     *     groups = {"group:create", "group:update"},
      *     max=50
      * )
      * @Assert\Type(
+     *     groups = {"group:create", "group:update"},
      *     type="string"
      * )
      */
@@ -31,11 +37,15 @@ class GroupInput
 
     /**
      * @Groups({"group:post", "group:patch"})
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(
+     *     groups = {"group:create", "group:update"}
+     * )
      * @Assert\Length(
+     *     groups = {"group:create", "group:update"},
      *     max=50
      * )
      * @Assert\Type(
+     *     groups = {"group:create", "group:update"},
      *     type="string"
      * )
      */
