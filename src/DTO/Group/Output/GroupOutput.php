@@ -20,4 +20,8 @@ class GroupOutput
     public ?array $groupMembers;
 
     public ?InvitationOutput $invitation = null;
+
+    public string $createdAt;
+
+    public string $updatedAt;
 }
