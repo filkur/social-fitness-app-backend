@@ -1,0 +1,26 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\DTO\GroupMember\Input;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\Invitation\isInvitationExist as isInvitationExistAssert;
+use App\Validator\GroupMember\IsUserMember as isUserMemberAssert;
+
+class GroupMemberInput
+{
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Type(
+     *     type="string"
+     * )
+     * @Assert\Length(
+     *     max=8,
+     *     min=8
+     * )
+     * @isInvitationExistAssert()
+     * @isUserMemberAssert()
+     */
+    public string $code;
+}
