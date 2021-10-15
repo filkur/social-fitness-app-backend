@@ -55,7 +55,9 @@ class Group implements TimestampInterface
     /**
      * @ORM\OneToMany(
      *     targetEntity=GroupMember::class,
-     *      mappedBy="group"
+     *     mappedBy="group",
+     *     orphanRemoval=true,
+     *     cascade={"remove"}
      * )
      */
     private Collection $groupMembers;
@@ -63,7 +65,8 @@ class Group implements TimestampInterface
     /**
      * @ORM\OneToOne(
      *     targetEntity=Invitation::class,
-     *     mappedBy="group"
+     *     mappedBy="group",
+     *     cascade={"remove"}
      * )
      */
     private ?Invitation $invitation = null;
@@ -104,7 +107,7 @@ class Group implements TimestampInterface
         return $this->owner;
     }
 
-    public function getGroupMembers(): ArrayCollection
+    public function getGroupMembers(): Collection
     {
         return $this->groupMembers;
     }
@@ -137,5 +140,14 @@ class Group implements TimestampInterface
     public function addInvitation(Invitation $invitation): void
     {
         $this->invitation = $invitation;
+    }
+
+    public function addGroupMember(GroupMember $groupMember): Group
+    {
+        if (! $this->groupMembers->contains($groupMember)) {
+            $this->groupMembers->add($groupMember);
+        }
+
+        return $this;
     }
 }

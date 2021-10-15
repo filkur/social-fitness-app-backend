@@ -34,7 +34,11 @@ class GroupMember
     /**
      * @ORM\ManyToOne(
      *     targetEntity=Group::class,
-     *     inversedBy="groupMembers"
+     *     inversedBy="groupMember",
+     *     cascade={"persist"}
+     * )
+     * @ORM\JoinColumn(
+     *     nullable=false
      * )
      */
     private Group $group;
@@ -46,4 +50,58 @@ class GroupMember
      * )
      */
     private DateTimeImmutable $assignedAt;
+
+    /**
+     * @param User  $user
+     * @param Group $group
+     */
+    private function __construct(User $user, Group $group)
+    {
+        $this->user = $user;
+        $this->group = $group;
+        $this->setAssignedAt();
+    }
+
+    public static function create
+    (
+        User $user,
+        Group $group
+    ): self {
+        $self = new self($user, $group);
+
+        $user->addGroupMember($self);
+        $group->addGroupMember($self);
+
+        return $self;
+    }
+
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): void
+    {
+        $this->user = $user;
+    }
+
+    public function getGroup(): Group
+    {
+        return $this->group;
+    }
+
+    public function setGroup(Group $group): void
+    {
+        $this->group = $group;
+    }
+
+    public function getAssignedAt(): DateTimeImmutable
+    {
+        return $this->assignedAt;
+    }
+
+    public function setAssignedAt(): void
+    {
+        $this->assignedAt = new DateTimeImmutable();
+    }
 }
