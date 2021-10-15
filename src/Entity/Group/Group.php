@@ -63,7 +63,8 @@ class Group implements TimestampInterface
     /**
      * @ORM\OneToOne(
      *     targetEntity=Invitation::class,
-     *     mappedBy="group"
+     *     mappedBy="group",
+     *     cascade={"remove"}
      * )
      */
     private ?Invitation $invitation = null;
