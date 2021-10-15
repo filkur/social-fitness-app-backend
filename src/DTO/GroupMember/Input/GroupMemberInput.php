@@ -7,6 +7,7 @@ namespace App\DTO\GroupMember\Input;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Validator\Invitation\isInvitationExist as isInvitationExistAssert;
 use App\Validator\GroupMember\IsUserMember as isUserMemberAssert;
+use App\Validator\GroupMember\IsLoggedInGroupOwner as isLoggedInGroupOwnerAssert;
 
 class GroupMemberInput
 {
@@ -21,6 +22,7 @@ class GroupMemberInput
      * )
      * @isInvitationExistAssert()
      * @isUserMemberAssert()
+     * @isLoggedInGroupOwnerAssert()
      */
     public string $code;
 }
