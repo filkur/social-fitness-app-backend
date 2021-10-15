@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20211013121056 extends AbstractMigration
+final class Version20211015195036 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,7 +20,7 @@ final class Version20211013121056 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE group_member (id UUID NOT NULL, user_id UUID DEFAULT NULL, group_id UUID DEFAULT NULL, assigned_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE group_member (id UUID NOT NULL, user_id UUID DEFAULT NULL, group_id UUID NOT NULL, assigned_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_A36222A8A76ED395 ON group_member (user_id)');
         $this->addSql('CREATE INDEX IDX_A36222A8FE54D947 ON group_member (group_id)');
         $this->addSql('COMMENT ON COLUMN group_member.id IS \'(DC2Type:ulid)\'');
