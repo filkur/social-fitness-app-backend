@@ -7,7 +7,6 @@ namespace App\Entity\GroupMember;
 use App\Entity\Group\Group;
 use App\Entity\Traits\UlidTrait;
 use App\Entity\User\User;
-use App\Utils\Date\DateHelper;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\GroupMember\GroupMemberRepository;
@@ -27,14 +26,12 @@ class GroupMember
     /**
      * @ORM\ManyToOne(
      *     targetEntity=User::class,
-     *     inversedBy="groupMembers",
-     *     cascade={"persist"}
+     *     inversedBy="groupMembers"
      * )
      */
     private User $user;
 
     /**
-     * /**
      * @ORM\ManyToOne(
      *     targetEntity=Group::class,
      *     inversedBy="groupMember",
@@ -69,8 +66,7 @@ class GroupMember
     (
         User $user,
         Group $group
-    ): self
-    {
+    ): self {
         $self = new self($user, $group);
 
         $user->addGroupMember($self);
@@ -103,7 +99,6 @@ class GroupMember
     {
         return $this->assignedAt;
     }
-
 
     public function setAssignedAt(): void
     {

@@ -10,9 +10,7 @@ use App\Entity\Invitation\Invitation;
 use App\Entity\User\User;
 use App\EventListener\AbstractValidateTransformer;
 use App\Factory\GroupMember\GroupMemberFactory;
-use App\Repository\Group\GroupRepository;
 use App\Repository\Invitation\InvitationRepository;
-use App\Repository\User\UserRepository;
 use App\Utils\DataHelper\MethodHelper;
 use App\Utils\ReadStorage\MutatorAfterReadStorage;
 use App\Utils\User\UserGetter;
@@ -23,20 +21,16 @@ class GroupMemberPostValidateTransformer extends AbstractValidateTransformer
 {
     private InvitationRepository $invitationRepository;
 
-    private GroupRepository $groupRepository;
-
     private UserGetter $userGetter;
 
     public function __construct(
         MutatorAfterReadStorage $mutatorAfterReadStorage,
         ContainerInterface $container,
         InvitationRepository $invitationRepository,
-        GroupRepository $groupRepository,
         UserGetter $userGetter
     ) {
         parent::__construct($mutatorAfterReadStorage, $container);
         $this->invitationRepository = $invitationRepository;
-        $this->groupRepository = $groupRepository;
         $this->userGetter = $userGetter;
     }
 
