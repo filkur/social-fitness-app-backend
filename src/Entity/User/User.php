@@ -49,7 +49,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
     /**
      * @ORM\OneToMany(
      *     targetEntity=Group::class,
-     *     mappedBy="owner"
+     *     mappedBy="owner",
+     *     orphanRemoval=true,
+     *     cascade={"remove"}
      * )
      */
     private Collection $groups;
@@ -57,7 +59,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
     /**
      * @ORM\OneToMany(
      *     targetEntity=GroupMember::class,
-     *     mappedBy="user"
+     *     mappedBy="user",
+     *     orphanRemoval=true,
+     *     cascade={"remove"}
      * )
      */
     private Collection $groupMembers;
@@ -189,5 +193,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
     public function getGroups()
     {
         return $this->groups;
+    }
+
+    public function addGroupMember(GroupMember $groupMember): self
+    {
+        if (! $this->groupMembers->contains($groupMember)){
+            $this->groupMembers->add($groupMember);
+        }
+        return $this;
     }
 }
