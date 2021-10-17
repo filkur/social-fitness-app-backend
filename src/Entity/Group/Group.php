@@ -9,6 +9,7 @@ use App\Entity\Traits\Timestamp\Timestamp;
 use App\Entity\Traits\Timestamp\TimestampInterface;
 use App\Entity\Traits\UlidTrait;
 use App\Entity\User\User;
+use App\Factory\GroupMember\GroupMemberFactory;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -57,7 +58,7 @@ class Group implements TimestampInterface
      *     targetEntity=GroupMember::class,
      *     mappedBy="group",
      *     orphanRemoval=true,
-     *     cascade={"remove"}
+     *     cascade={"persist", "remove"}
      * )
      */
     private Collection $groupMembers;
@@ -88,6 +89,10 @@ class Group implements TimestampInterface
         $self->setName($name);
 
         $owner->addGroup($self);
+        GroupMemberFactory::createFromParameters(
+            $owner,
+            $self
+        );
 
         return $self;
     }
