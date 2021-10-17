@@ -69,8 +69,8 @@ class GroupMember
     ): self {
         $self = new self($user, $group);
 
-        $user->addGroupMember($self);
         $group->addGroupMember($self);
+        $user->addGroupMember($self);
 
         return $self;
     }

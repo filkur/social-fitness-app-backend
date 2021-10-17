@@ -31,30 +31,19 @@ class GroupCollectionDataProvider
 
     public function getCollection(string $resourceClass, string $operationName = null, array $context = [])
     {
-        /** @var User $owner */
-        $owner = $this->userGetter->get();
+        /** @var User $loggedUser */
+        $loggedUser = $this->userGetter->get();
 
-        $ownerGroupsArray = $owner->getGroups()->toArray();
+        $groupsMember = $this->groupMemberRepository->findBy([
+            'user' => $loggedUser,
+        ]);
 
-
-        $ownerGroupMembers = new ArrayCollection(
-            $this->groupMemberRepository->findBy([
-                'user' => $owner
-            ])
-        );
-
-        $ownerGroupMemberArray = [];
-        foreach ($ownerGroupMembers as $groupMember) {
-            /** @var GroupMember $groupMember */
-            $ownerGroupMemberArray[] = $groupMember->getGroup();
+        $groups = new ArrayCollection();
+        foreach ($groupsMember as $member) {
+            $groups->add($member->getGroup());
         }
 
-        return new ArrayCollection(
-            array_merge(
-                $ownerGroupsArray,
-                $ownerGroupMemberArray
-            )
-        );
+        return $groups;
     }
 
     public function supports(string $resourceClass, string $operationName = null, array $context = []): bool
