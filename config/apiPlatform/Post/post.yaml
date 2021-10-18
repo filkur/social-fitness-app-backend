@@ -1,0 +1,25 @@
+#read
+App\Entity\Post\Post:
+    attributes:
+        formats: [ 'json' ]
+        output: App\DTO\Post\Output\PostOutput
+    properties:
+        id:
+            identifier: true
+    collectionOperations:
+        get:
+            path: /post
+            openapi_context:
+                tags:
+                    - Post
+    itemOperations:
+        get:
+            path: /post/{id}
+            openapi_context:
+                tags:
+                    - Post
+        delete:
+            path: /post/{id}
+            openapi_context:
+                tags:
+                    - Post
