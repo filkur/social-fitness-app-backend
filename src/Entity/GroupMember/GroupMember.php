@@ -34,7 +34,7 @@ class GroupMember
     /**
      * @ORM\ManyToOne(
      *     targetEntity=Group::class,
-     *     inversedBy="groupMember",
+     *     inversedBy="groupMembers",
      *     cascade={"persist"}
      * )
      * @ORM\JoinColumn(

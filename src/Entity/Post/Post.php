@@ -51,7 +51,7 @@ class Post implements TimestampInterface
     /**
      * @ORM\OneToMany(
      *     targetEntity=Comment::class,
-     *     mappedBy="post", orphanRemoval=true
+     *     mappedBy="post", orphanRemoval=true,
      *     cascade={"persist", "remove"}
      *     )
      */
