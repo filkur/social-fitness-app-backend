@@ -57,9 +57,31 @@ class Post implements TimestampInterface
      */
     private Collection $comments;
 
-    public function __construct()
-    {
+    private function __construct(
+        User $user,
+        Group $group,
+        string $content
+    ) {
+        $this->setOwner($user);
+        $this->setGroup($group);
+        $this->setContent($content);
         $this->comments = new ArrayCollection();
+    }
+
+    public static function create(
+        User $user,
+        Group $group,
+        string $content
+    ): self {
+        $self = new self(
+            $user,
+            $group,
+            $content
+        );
+        $user->addPost($self);
+        $group->addPost($self);
+
+        return $self;
     }
 
     public function getGroup(): ?Group
@@ -103,7 +125,7 @@ class Post implements TimestampInterface
 
     public function addComment(Comment $comment): self
     {
-        if (!$this->comments->contains($comment)) {
+        if (! $this->comments->contains($comment)) {
             $this->comments[] = $comment;
             $comment->setPost($this);
         }

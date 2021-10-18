@@ -6,4 +6,7 @@ namespace App\DTO\Post\Input;
 
 class PostInput
 {
+    public string $groupId;
+
+    public string $content;
 }
