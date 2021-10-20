@@ -10,7 +10,7 @@ App\Entity\Post\Post:
         get:
             path: /post
             normalization_context:
-                groups: [ 'post:collection' ]
+                groups: [ 'post:collection', 'user:base' ]
             openapi_context:
                 tags:
                     - Post
@@ -18,7 +18,7 @@ App\Entity\Post\Post:
         get:
             path: /post/{id}
             normalization_context:
-                groups: ['post:item']
+                groups: ['post:item', 'user:base']
             openapi_context:
                 tags:
                     - Post
@@ -38,7 +38,18 @@ App\DTO\Post\Input\PostInput:
     collectionOperations:
         post:
             path: /post
+            denormalization_context:
+                groups: [ 'post:post' ]
+            validation_groups: [ 'post:create' ]
             openapi_context:
                 tags:
                     - Post
-    itemOperations: {}
+    itemOperations:
+        patch:
+            path: /post/{id}
+            denormalization_context:
+                groups: [ 'post:patch' ]
+            validation_groups: [ 'post:update' ]
+            openapi_context:
+                tags:
+                    - Post
