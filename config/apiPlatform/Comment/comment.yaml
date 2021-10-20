@@ -1,55 +1,55 @@
 #read
-App\Entity\Post\Post:
+App\Entity\Comment\Comment:
     attributes:
         formats: [ 'json' ]
-        output: App\DTO\Post\Output\PostOutput
+        output: App\DTO\Comment\Output\CommentOutput
     properties:
         id:
             identifier: true
     collectionOperations:
         get:
-            path: /post
+            path: /comment
             normalization_context:
-                groups: [ 'post:collection', 'user:base' ]
+                groups: ['comment:base']
             openapi_context:
                 tags:
-                    - Post
+                    - Comment
     itemOperations:
         get:
-            path: /post/{id}
+            path: /comment/{id}
             normalization_context:
-                groups: ['post:item', 'user:base', 'comment:base']
+                groups: ['comment:base']
             openapi_context:
                 tags:
-                    - Post
+                    - Comment
         delete:
-            path: /post/{id}
+            path: /comment/{id}
             openapi_context:
                 tags:
-                    - Post
+                    - Comment
 #write
-App\DTO\Post\Input\PostInput:
+App\DTO\Comment\Input\CommentInput:
     attributes:
         formats: [ 'json' ]
-        output: App\DTO\Post\Output\PostOutput
+        output: App\DTO\Comment\Output\CommentOutput
     properties:
         id:
             identifier: true
     collectionOperations:
         post:
-            path: /post
+            path: /comment
             denormalization_context:
-                groups: [ 'post:post' ]
-            validation_groups: [ 'post:create' ]
+                groups: [ 'comment:post' ]
+            validation_groups: [ 'comment:create', 'user:base' ]
             openapi_context:
                 tags:
-                    - Post
+                    - Comment
     itemOperations:
         patch:
-            path: /post/{id}
+            path: /comment/{id}
             denormalization_context:
-                groups: [ 'post:patch' ]
-            validation_groups: [ 'post:update' ]
+                groups: [ 'comment:patch' ]
+            validation_groups: [ 'comment:update', 'user:base' ]
             openapi_context:
                 tags:
-                    - Post
+                    - Comment

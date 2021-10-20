@@ -24,6 +24,8 @@ class PostDataTransformer implements DataTransformerInterface
         $output->createdBy = UserOutput::createFromUser(
             $object->getOwner()
         );
+        $output->comments = $object->getComments()
+                                   ->toArray();
         $output->createdAt = DateHelper::toDateFormat(
             $object->getCreatedAt()
         );

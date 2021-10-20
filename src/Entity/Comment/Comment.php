@@ -2,6 +2,7 @@
 
 namespace App\Entity\Comment;
 
+use App\Entity\Group\Group;
 use App\Entity\Post\Post;
 use App\Entity\Traits\Timestamp\Timestamp;
 use App\Entity\Traits\Timestamp\TimestampInterface;
@@ -15,7 +16,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Comment implements TimestampInterface
 {
-
     use UlidTrait;
     use Timestamp;
 
@@ -46,6 +46,30 @@ class Comment implements TimestampInterface
      * @ORM\JoinColumn(nullable=false)
      */
     private Post $post;
+
+    private function __construct(User $owner, Post $post, string $content)
+    {
+        $this->content = $content;
+        $this->owner = $owner;
+        $this->post = $post;
+    }
+
+    public static function create(
+        User $user,
+        Post $post,
+        string $content
+    ): self {
+        $self = new self(
+            $user,
+            $post,
+            $content
+        );
+
+        $user->addComment($self);
+        $post->addComment($self);
+
+        return $self;
+    }
 
     public function getOwner(): ?User
     {

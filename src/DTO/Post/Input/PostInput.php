@@ -43,7 +43,7 @@ class PostInput
     /**
      * @Groups({"post:post", "post:patch"})
      * @Assert\NotBlank(
-     *     groups={"post:update",  "post:update"}
+     *     groups={"post:create",  "post:update"}
      * )
      * @Assert\Type(
      *     groups={"post:create", "post:update"},

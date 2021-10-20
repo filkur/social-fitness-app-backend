@@ -25,6 +25,11 @@ class PostOutput
     public UserOutput $createdBy;
 
     /**
+     * @Groups({"post:item"})
+     */
+    public ?array $comments;
+
+    /**
      * @Groups({"post:collection", "post:item"})
      */
     public string $createdAt;
