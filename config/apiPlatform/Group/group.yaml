@@ -10,7 +10,12 @@ App\Entity\Group\Group:
         get:
             path: /group
             normalization_context:
-                groups: [ 'group:collection', 'user:base', 'groupMember:base', 'invitation:base']
+                groups: [
+                        'group:collection',
+                        'user:base',
+                        'groupMember:base',
+                        'invitation:base'
+                ]
             openapi_context:
                 tags:
                     - Group
@@ -18,7 +23,13 @@ App\Entity\Group\Group:
         get:
             path: /group/{id}
             normalization_context:
-                groups: [ 'group:item', 'user:base', 'post:collection', 'groupMember:base', 'invitation:base']
+                groups: [
+                        'group:item',
+                        'user:base',
+                        'post:collection',
+                        'groupMember:base',
+                        'invitation:base'
+                ]
             openapi_context:
                 tags:
                     - Group
