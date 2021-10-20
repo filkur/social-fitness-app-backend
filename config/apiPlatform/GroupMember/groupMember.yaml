@@ -6,6 +6,8 @@ App\Entity\GroupMember\GroupMember:
     properties:
         id:
             identifier: true
+    normalization_context:
+        groups: [ 'groupMember:base' ]
     collectionOperations:
         get:
             path: /member

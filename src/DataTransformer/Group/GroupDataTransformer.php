@@ -28,6 +28,8 @@ class GroupDataTransformer implements DataTransformerInterface
         $output->description = $object->getDescription();
         $output->groupMembers = $object->getGroupMembersArray();
 
+        $output->posts = $object->getPosts()->toArray();
+
         $output->createdAt = DateHelper::toDateFormat(
             $object->getCreatedAt()
         );

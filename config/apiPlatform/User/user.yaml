@@ -6,6 +6,8 @@ App\Entity\User\User:
     properties:
         id:
             identifier: true
+    normalization_context:
+        groups: [ 'user:base' ]
     collectionOperations:
         get:
             path: /user

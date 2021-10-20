@@ -6,6 +6,8 @@ App\Entity\Invitation\Invitation:
     properties:
         id:
             identifier: true
+    normalization_context:
+        groups: ['invitation:base']
     collectionOperations:
         get:
             path: /invitation

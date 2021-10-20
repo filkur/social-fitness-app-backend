@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\ DataProvider\Group;
+namespace App\DataProvider\Group;
 
 use App\DataProvider\Utils\AllDataProvider;
 use App\DTO\Group\Input\GroupInput;

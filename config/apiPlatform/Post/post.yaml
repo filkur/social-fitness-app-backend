@@ -9,12 +9,16 @@ App\Entity\Post\Post:
     collectionOperations:
         get:
             path: /post
+            normalization_context:
+                groups: [ 'post:collection' ]
             openapi_context:
                 tags:
                     - Post
     itemOperations:
         get:
             path: /post/{id}
+            normalization_context:
+                groups: ['post:item']
             openapi_context:
                 tags:
                     - Post
@@ -23,3 +27,18 @@ App\Entity\Post\Post:
             openapi_context:
                 tags:
                     - Post
+#write
+App\DTO\Post\Input\PostInput:
+    attributes:
+        formats: [ 'json' ]
+        output: App\DTO\Post\Output\PostOutput
+    properties:
+        id:
+            identifier: true
+    collectionOperations:
+        post:
+            path: /post
+            openapi_context:
+                tags:
+                    - Post
+    itemOperations: {}
