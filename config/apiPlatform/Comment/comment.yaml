@@ -10,7 +10,7 @@ App\Entity\Comment\Comment:
         get:
             path: /comment
             normalization_context:
-                groups: ['comment:base']
+                groups: ['comment:base', 'user:base']
             openapi_context:
                 tags:
                     - Comment
@@ -18,7 +18,7 @@ App\Entity\Comment\Comment:
         get:
             path: /comment/{id}
             normalization_context:
-                groups: ['comment:base']
+                groups: ['comment:base', 'user:base']
             openapi_context:
                 tags:
                     - Comment
@@ -40,7 +40,7 @@ App\DTO\Comment\Input\CommentInput:
             path: /comment
             denormalization_context:
                 groups: [ 'comment:post' ]
-            validation_groups: [ 'comment:create', 'user:base' ]
+            validation_groups: [ 'comment:create' ]
             openapi_context:
                 tags:
                     - Comment
@@ -49,7 +49,7 @@ App\DTO\Comment\Input\CommentInput:
             path: /comment/{id}
             denormalization_context:
                 groups: [ 'comment:patch' ]
-            validation_groups: [ 'comment:update', 'user:base' ]
+            validation_groups: [ 'comment:update' ]
             openapi_context:
                 tags:
                     - Comment

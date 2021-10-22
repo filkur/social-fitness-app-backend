@@ -8,6 +8,7 @@ use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
 use App\DTO\Comment\Output\CommentOutput;
 use App\DTO\User\Output\UserOutput;
 use App\Entity\Comment\Comment;
+use App\Utils\Date\DateHelper;
 
 class CommentDataTransformer implements DataTransformerInterface
 {
@@ -22,6 +23,13 @@ class CommentDataTransformer implements DataTransformerInterface
         $output->content = $object->getContent();
         $output->createdBy = UserOutput::createFromUser(
             $object->getOwner()
+        );
+        $output->createdAt = DateHelper::toDateTimeFormat(
+            $object->getCreatedAt()
+        );
+
+        $output->updatedAt = DateHelper::toDateTimeFormat(
+            $object->getUpdatedAt()
         );
 
         return $output;

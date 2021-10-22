@@ -30,11 +30,11 @@ class GroupDataTransformer implements DataTransformerInterface
 
         $output->posts = $object->getPosts()->toArray();
 
-        $output->createdAt = DateHelper::toDateFormat(
+        $output->createdAt = DateHelper::toDateTimeFormat(
             $object->getCreatedAt()
         );
 
-        $output->updatedAt = DateHelper::toDateFormat(
+        $output->updatedAt = DateHelper::toDateTimeFormat(
             $object->getUpdatedAt()
         );
 

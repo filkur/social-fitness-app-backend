@@ -26,10 +26,10 @@ class PostDataTransformer implements DataTransformerInterface
         );
         $output->comments = $object->getComments()
                                    ->toArray();
-        $output->createdAt = DateHelper::toDateFormat(
+        $output->createdAt = DateHelper::toDateTimeFormat(
             $object->getCreatedAt()
         );
-        $output->updatedAt = DateHelper::toDateFormat(
+        $output->updatedAt = DateHelper::toDateTimeFormat(
             $object->getUpdatedAt()
         );
 

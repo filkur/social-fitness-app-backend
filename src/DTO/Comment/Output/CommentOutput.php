@@ -23,4 +23,14 @@ class CommentOutput
      * @Groups({"comment:base"})
      */
     public string $content;
+
+    /**
+     * @Groups({"comment:base"})
+     */
+    public string $createdAt;
+
+    /**
+     * @Groups({"comment:base"})
+     */
+    public string $updatedAt;
 }

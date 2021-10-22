@@ -23,7 +23,7 @@ class GroupMemberDataTransformer implements DataTransformerInterface
         $output->user = UserOutput::createFromUser(
             $object->getUser()
         );
-        $output->assignedAt = DateHelper::toDateFormat(
+        $output->assignedAt = DateHelper::toDateTimeFormat(
             $object->getAssignedAt()
         );
 
