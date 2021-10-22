@@ -16,6 +16,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\Group\Group;
 use App\Entity\GroupMember\GroupMember;
+use App\Entity\EventMember\EventMember;
 
 /**
  * @ORM\Table(
@@ -87,6 +88,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
      * )
      */
     private Collection $comments;
+
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity=EventMember::class,
+     *     mappedBy="user",
+     *     orphanRemoval=true,
+     *     cascade={"persist", "remove"}
+     * )
+     */
+    private Collection $eventMembers;
 
     public function __construct()
     {
@@ -221,9 +232,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
 
     public function addGroupMember(GroupMember $groupMember): self
     {
-        if (! $this->groupMembers->contains($groupMember)){
+        if (! $this->groupMembers->contains($groupMember)) {
             $this->groupMembers->add($groupMember);
         }
+
         return $this;
     }
 
@@ -234,7 +246,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
 
     public function addPost(Post $post): self
     {
-        if (!$this->posts->contains($post)) {
+        if (! $this->posts->contains($post)) {
             $this->posts[] = $post;
             $post->setOwner($this);
         }
@@ -261,7 +273,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
 
     public function addComment(Comment $comment): self
     {
-        if (!$this->comments->contains($comment)) {
+        if (! $this->comments->contains($comment)) {
             $this->comments[] = $comment;
             $comment->setOwner($this);
         }
@@ -276,6 +288,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Timesta
             if ($comment->getOwner() === $this) {
                 $comment->setOwner(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function addEventMember(EventMember $eventMember): self
+    {
+        if (! $this->eventMembers->contains($eventMember)) {
+            $this->eventMembers->add($eventMember);
         }
 
         return $this;
