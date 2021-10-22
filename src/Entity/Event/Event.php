@@ -8,6 +8,7 @@ use App\Entity\Traits\Timestamp\Timestamp;
 use App\Entity\Traits\Timestamp\TimestampInterface;
 use App\Entity\Traits\UlidTrait;
 use App\Repository\Event\EventRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -83,6 +84,22 @@ class Event implements TimestampInterface
      * )
      */
     public string $eventType;
+
+    /**
+     * @ORM\Column(
+     *     name="start_date",
+     *     type="datetime_immutable"
+     * )
+     */
+    public DateTimeImmutable $startDate;
+
+    /**
+     * @ORM\Column(
+     *     name="end_date",
+     *     type="datetime_immutable"
+     * )
+     */
+    public DateTimeImmutable $endDate;
 
     /**
      * @ORM\ManyToOne(
@@ -235,7 +252,7 @@ class Event implements TimestampInterface
 
     public function addActivity(Activity $activity): self
     {
-        if (!$this->activities->contains($activity)) {
+        if (! $this->activities->contains($activity)) {
             $this->activities[] = $activity;
             $activity->setEvent($this);
         }
@@ -253,5 +270,25 @@ class Event implements TimestampInterface
         }
 
         return $this;
+    }
+
+    public function getStartDate(): DateTimeImmutable
+    {
+        return $this->startDate;
+    }
+
+    public function setStartDate(DateTimeImmutable $startDate): void
+    {
+        $this->startDate = $startDate;
+    }
+
+    public function getEndDate(): DateTimeImmutable
+    {
+        return $this->endDate;
+    }
+
+    public function setEndDate(DateTimeImmutable $endDate): void
+    {
+        $this->endDate = $endDate;
     }
 }

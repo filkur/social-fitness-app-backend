@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20211022210452 extends AbstractMigration
+final class Version20211022212108 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -36,10 +36,12 @@ final class Version20211022210452 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN Comment.post_id IS \'(DC2Type:ulid)\'');
         $this->addSql('COMMENT ON COLUMN Comment.created_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN Comment.updated_at IS \'(DC2Type:datetime_immutable)\'');
-        $this->addSql('CREATE TABLE Event (id UUID NOT NULL, group_id UUID NOT NULL, name VARCHAR(50) NOT NULL, description VARCHAR(200) NOT NULL, point_goal INT DEFAULT NULL, points_per_minute INT DEFAULT NULL, points_per_rep INT DEFAULT NULL, is_active BOOLEAN NOT NULL, event_type VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE Event (id UUID NOT NULL, group_id UUID NOT NULL, name VARCHAR(50) NOT NULL, description VARCHAR(200) NOT NULL, point_goal INT DEFAULT NULL, points_per_minute INT DEFAULT NULL, points_per_rep INT DEFAULT NULL, is_active BOOLEAN NOT NULL, event_type VARCHAR(255) NOT NULL, start_date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, end_date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_FA6F25A3FE54D947 ON Event (group_id)');
         $this->addSql('COMMENT ON COLUMN Event.id IS \'(DC2Type:ulid)\'');
         $this->addSql('COMMENT ON COLUMN Event.group_id IS \'(DC2Type:ulid)\'');
+        $this->addSql('COMMENT ON COLUMN Event.start_date IS \'(DC2Type:datetime_immutable)\'');
+        $this->addSql('COMMENT ON COLUMN Event.end_date IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN Event.created_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN Event.updated_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('CREATE TABLE Post (id UUID NOT NULL, group_id UUID DEFAULT NULL, owner_id UUID NOT NULL, content VARCHAR(400) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
