@@ -5,6 +5,8 @@ namespace App\Entity\User;
 use App\Entity\Comment\Comment;
 use App\Entity\Post\Post;
 use App\Entity\Traits\Email;
+use App\Entity\Traits\Timestamp\Timestamp;
+use App\Entity\Traits\Timestamp\TimestampInterface;
 use App\Entity\Traits\UlidTrait;
 use App\Repository\User\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -21,9 +23,10 @@ use App\Entity\GroupMember\GroupMember;
  * )
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, TimestampInterface
 {
     use UlidTrait;
+    use Timestamp;
     use Email;
 
     public const ROLE_USER = "ROLE_USER";
