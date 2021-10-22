@@ -2,50 +2,49 @@
 
 declare(strict_types=1);
 
-namespace App\DataProvider\Group;
+namespace App\DataProvider\Post;
 
 use App\DataProvider\Utils\AllDataProvider;
-use App\DTO\Group\Input\GroupInput;
-use App\Entity\Group\Group;
-use App\Repository\Group\GroupRepository;
+use App\DTO\Post\Input\PostInput;
+use App\Entity\Post\Post;
+use App\Repository\Post\PostRepository;
 use App\Utils\ApiPlatform\ApiPlatformCollectionFilter;
 use App\Utils\ReadStorage\MutatorAfterReadStorage;
 use Doctrine\ORM\QueryBuilder;
 
-class GroupDataProvider extends AllDataProvider
+class PostDataProvider extends AllDataProvider
 {
-    private GroupRepository $groupRepository;
+    private PostRepository $postRepository;
 
     public function __construct(
         ApiPlatformCollectionFilter $apiPlatformCollectionFilter,
         MutatorAfterReadStorage $mutatorAfterReadStorage,
-        GroupRepository $groupRepository
-    )
-    {
+        PostRepository $postRepository
+    ) {
         parent::__construct($apiPlatformCollectionFilter, $mutatorAfterReadStorage);
-        $this->groupRepository = $groupRepository;
+        $this->postRepository = $postRepository;
     }
 
     protected function isValidResourceClass(string $resource): bool
     {
-        return $resource === Group::class || $resource === GroupInput::class;
+        return $resource === Post::class || $resource === PostInput::class;
     }
 
     /**
-     * @param Group $object
+     * @param Post $object
      */
     protected function createDtoObject(object $object, array $context): object
     {
-        return GroupInput::createFromEntity($object);
+        return PostInput::createFromEntity($object);
     }
 
     protected function findObject($id): ?object
     {
-        return $this->groupRepository->find($id);
+        return $this->postRepository->find($id);
     }
 
     protected function getQueryBuilder(): QueryBuilder
     {
-        return $this->groupRepository->createQueryBuilder('groups');
+        return $this->postRepository->createQueryBuilder('post');
     }
 }

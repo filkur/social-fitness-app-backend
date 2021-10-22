@@ -1,0 +1,55 @@
+#read
+App\Entity\Comment\Comment:
+    attributes:
+        formats: [ 'json' ]
+        output: App\DTO\Comment\Output\CommentOutput
+    properties:
+        id:
+            identifier: true
+    collectionOperations:
+        get:
+            path: /comment
+            normalization_context:
+                groups: ['comment:base', 'user:base']
+            openapi_context:
+                tags:
+                    - Comment
+    itemOperations:
+        get:
+            path: /comment/{id}
+            normalization_context:
+                groups: ['comment:base', 'user:base']
+            openapi_context:
+                tags:
+                    - Comment
+        delete:
+            path: /comment/{id}
+            openapi_context:
+                tags:
+                    - Comment
+#write
+App\DTO\Comment\Input\CommentInput:
+    attributes:
+        formats: [ 'json' ]
+        output: App\DTO\Comment\Output\CommentOutput
+    properties:
+        id:
+            identifier: true
+    collectionOperations:
+        post:
+            path: /comment
+            denormalization_context:
+                groups: [ 'comment:post' ]
+            validation_groups: [ 'comment:create' ]
+            openapi_context:
+                tags:
+                    - Comment
+    itemOperations:
+        patch:
+            path: /comment/{id}
+            denormalization_context:
+                groups: [ 'comment:patch' ]
+            validation_groups: [ 'comment:update' ]
+            openapi_context:
+                tags:
+                    - Comment

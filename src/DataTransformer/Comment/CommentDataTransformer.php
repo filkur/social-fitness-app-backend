@@ -2,28 +2,32 @@
 
 declare(strict_types=1);
 
-namespace App\DataTransformer\User;
+namespace App\DataTransformer\Comment;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
-use App\Entity\User\User;
+use App\DTO\Comment\Output\CommentOutput;
 use App\DTO\User\Output\UserOutput;
+use App\Entity\Comment\Comment;
 use App\Utils\Date\DateHelper;
 
-class UserDataTransformer implements DataTransformerInterface
+class CommentDataTransformer implements DataTransformerInterface
 {
     /**
-     * @param User $object
+     * @param Comment $object
      */
     public function transform($object, string $to, array $context = [])
     {
-        $output = new UserOutput();
+        $output = new CommentOutput();
 
         $output->id = $object->getIdString();
-        $output->email = $object->getEmail();
-        $output->nickname = $object->getNickname();
+        $output->content = $object->getContent();
+        $output->createdBy = UserOutput::createFromUser(
+            $object->getOwner()
+        );
         $output->createdAt = DateHelper::toDateTimeFormat(
             $object->getCreatedAt()
         );
+
         $output->updatedAt = DateHelper::toDateTimeFormat(
             $object->getUpdatedAt()
         );
@@ -33,6 +37,6 @@ class UserDataTransformer implements DataTransformerInterface
 
     public function supportsTransformation($data, string $to, array $context = []): bool
     {
-        return $to === UserOutput::class && $data instanceof User;
+        return $to === CommentOutput::class && $data instanceof Comment;
     }
 }

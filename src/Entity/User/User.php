@@ -2,6 +2,8 @@
 
 namespace App\Entity\User;
 
+use App\Entity\Comment\Comment;
+use App\Entity\Post\Post;
 use App\Entity\Traits\Email;
 use App\Entity\Traits\UlidTrait;
 use App\Repository\User\UserRepository;
@@ -63,10 +65,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private Collection $groupMembers;
 
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity=Post::class,
+     *     mappedBy="owner",
+     *     orphanRemoval=true,
+     *     cascade={"persist", "remove"}
+     * )
+     */
+    private Collection $posts;
+
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity=Comment::class,
+     *     mappedBy="owner",
+     *     orphanRemoval=true,
+     *     cascade={"persist", "remove"}
+     * )
+     */
+    private Collection $comments;
+
     public function __construct()
     {
         $this->groups = new ArrayCollection();
         $this->groupMembers = new ArrayCollection();
+        $this->posts = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public static function create(
@@ -197,6 +221,60 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if (! $this->groupMembers->contains($groupMember)){
             $this->groupMembers->add($groupMember);
         }
+        return $this;
+    }
+
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Post $post): self
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts[] = $post;
+            $post->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): self
+    {
+        if ($this->posts->removeElement($post)) {
+            // set the owning side to null (unless already changed)
+            if ($post->getOwner() === $this) {
+                $post->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getOwner() === $this) {
+                $comment->setOwner(null);
+            }
+        }
+
         return $this;
     }
 }

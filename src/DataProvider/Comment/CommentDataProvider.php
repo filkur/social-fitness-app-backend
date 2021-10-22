@@ -2,50 +2,49 @@
 
 declare(strict_types=1);
 
-namespace App\DataProvider\Group;
+namespace App\DataProvider\Comment;
 
 use App\DataProvider\Utils\AllDataProvider;
-use App\DTO\Group\Input\GroupInput;
-use App\Entity\Group\Group;
-use App\Repository\Group\GroupRepository;
+use App\DTO\Comment\Input\CommentInput;
+use App\Entity\Comment\Comment;
+use App\Repository\Comment\CommentRepository;
 use App\Utils\ApiPlatform\ApiPlatformCollectionFilter;
 use App\Utils\ReadStorage\MutatorAfterReadStorage;
 use Doctrine\ORM\QueryBuilder;
 
-class GroupDataProvider extends AllDataProvider
+class CommentDataProvider extends AllDataProvider
 {
-    private GroupRepository $groupRepository;
+    private CommentRepository $commentRepository;
 
     public function __construct(
         ApiPlatformCollectionFilter $apiPlatformCollectionFilter,
         MutatorAfterReadStorage $mutatorAfterReadStorage,
-        GroupRepository $groupRepository
-    )
-    {
+        CommentRepository $commentRepository
+    ) {
         parent::__construct($apiPlatformCollectionFilter, $mutatorAfterReadStorage);
-        $this->groupRepository = $groupRepository;
+        $this->commentRepository = $commentRepository;
     }
 
     protected function isValidResourceClass(string $resource): bool
     {
-        return $resource === Group::class || $resource === GroupInput::class;
+        return $resource === CommentInput::class || $resource === Comment::class;
     }
 
     /**
-     * @param Group $object
+     * @param Comment $object
      */
     protected function createDtoObject(object $object, array $context): object
     {
-        return GroupInput::createFromEntity($object);
+        return CommentInput::createFromEntity($object);
     }
 
     protected function findObject($id): ?object
     {
-        return $this->groupRepository->find($id);
+        return $this->commentRepository->find($id);
     }
 
     protected function getQueryBuilder(): QueryBuilder
     {
-        return $this->groupRepository->createQueryBuilder('groups');
+        return $this->commentRepository->createQueryBuilder('comment');
     }
 }

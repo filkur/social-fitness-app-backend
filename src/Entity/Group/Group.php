@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\Group;
 
 use App\Entity\Invitation\Invitation;
+use App\Entity\Post\Post;
 use App\Entity\Traits\Timestamp\Timestamp;
 use App\Entity\Traits\Timestamp\TimestampInterface;
 use App\Entity\Traits\UlidTrait;
@@ -72,9 +73,19 @@ class Group implements TimestampInterface
      */
     private ?Invitation $invitation = null;
 
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity=Post::class,
+     *     mappedBy="group",
+     *     orphanRemoval=true,
+     *     cascade={"persist", "remove"})
+     */
+    private Collection $posts;
+
     public function __construct()
     {
         $this->groupMembers = new ArrayCollection();
+        $this->posts = new ArrayCollection();
     }
 
     public static function create(
@@ -151,6 +162,36 @@ class Group implements TimestampInterface
     {
         if (! $this->groupMembers->contains($groupMember)) {
             $this->groupMembers->add($groupMember);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Post[]
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Post $post): self
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts[] = $post;
+            $post->setGroup($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): self
+    {
+        if ($this->posts->removeElement($post)) {
+            // set the owning side to null (unless already changed)
+            if ($post->getGroup() === $this) {
+                $post->setGroup(null);
+            }
         }
 
         return $this;

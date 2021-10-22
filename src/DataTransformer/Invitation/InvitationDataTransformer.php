@@ -7,6 +7,7 @@ namespace App\DataTransformer\Invitation;
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
 use App\DTO\Invitation\Output\InvitationOutput;
 use App\Entity\Invitation\Invitation;
+use App\Utils\Date\DateHelper;
 
 class InvitationDataTransformer implements DataTransformerInterface
 {
@@ -19,6 +20,12 @@ class InvitationDataTransformer implements DataTransformerInterface
 
         $output->id = $object->getIdString();
         $output->code = $object->getCode();
+        $output->createdAt = DateHelper::toDateTimeFormat(
+            $object->getCreatedAt()
+        );
+        $output->updatedAt = DateHelper::toDateTimeFormat(
+            $object->getUpdatedAt()
+        );
 
         return $output;
     }

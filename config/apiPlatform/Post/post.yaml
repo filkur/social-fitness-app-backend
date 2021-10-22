@@ -1,0 +1,55 @@
+#read
+App\Entity\Post\Post:
+    attributes:
+        formats: [ 'json' ]
+        output: App\DTO\Post\Output\PostOutput
+    properties:
+        id:
+            identifier: true
+    collectionOperations:
+        get:
+            path: /post
+            normalization_context:
+                groups: [ 'post:collection', 'user:base' ]
+            openapi_context:
+                tags:
+                    - Post
+    itemOperations:
+        get:
+            path: /post/{id}
+            normalization_context:
+                groups: ['post:item', 'user:base', 'comment:base']
+            openapi_context:
+                tags:
+                    - Post
+        delete:
+            path: /post/{id}
+            openapi_context:
+                tags:
+                    - Post
+#write
+App\DTO\Post\Input\PostInput:
+    attributes:
+        formats: [ 'json' ]
+        output: App\DTO\Post\Output\PostOutput
+    properties:
+        id:
+            identifier: true
+    collectionOperations:
+        post:
+            path: /post
+            denormalization_context:
+                groups: [ 'post:post' ]
+            validation_groups: [ 'post:create' ]
+            openapi_context:
+                tags:
+                    - Post
+    itemOperations:
+        patch:
+            path: /post/{id}
+            denormalization_context:
+                groups: [ 'post:patch' ]
+            validation_groups: [ 'post:update' ]
+            openapi_context:
+                tags:
+                    - Post
