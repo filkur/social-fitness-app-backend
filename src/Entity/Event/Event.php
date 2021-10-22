@@ -3,11 +3,13 @@
 namespace App\Entity\Event;
 
 use App\Entity\Activity\Activity;
+use App\Entity\EventMember\EventMember;
 use App\Entity\Group\Group;
 use App\Entity\Traits\Timestamp\Timestamp;
 use App\Entity\Traits\Timestamp\TimestampInterface;
 use App\Entity\Traits\UlidTrait;
 use App\Repository\Event\EventRepository;
+use App\Utils\Date\DateHelper;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -120,9 +122,56 @@ class Event implements TimestampInterface
      */
     private Collection $activities;
 
-    public function __construct()
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity=EventMember::class,
+     *     mappedBy="event",
+     *     orphanRemoval=true,
+     *     cascade={"persist", "remove"}
+     * )
+     */
+    private Collection $eventMembers;
+
+    private function __construct()
     {
         $this->activities = new ArrayCollection();
+        $this->eventMembers = new ArrayCollection();
+    }
+
+    public static function create(
+        Group $group,
+        string $name,
+        string $description,
+        int $pointGoal,
+        int $pointPerRep,
+        int $pointPerMinute,
+        string $startDate,
+        string $endDate,
+        string $eventType
+    ): self {
+        $self = new self();
+
+        $self->setGroup($group);
+        $self->setName($name);
+        $self->setDescription($description);
+        $self->setPointGoal($pointGoal);
+        $self->setPointsPerRep($pointPerRep);
+        $self->setPointsPerMinute($pointPerMinute);
+        $self->setStartDate(
+            DateHelper::createDateFromString(
+                $startDate
+            )
+        );
+        $self->setEndDate(
+            DateHelper::createDateFromString(
+                $endDate
+            )
+        );
+        $self->setEventType($eventType);
+
+        $group->addEvent($self);
+
+        return $self;
     }
 
     public function getEventType(): string
@@ -290,5 +339,35 @@ class Event implements TimestampInterface
     public function setEndDate(DateTimeImmutable $endDate): void
     {
         $this->endDate = $endDate;
+    }
+
+    /**
+     * @return Collection|EventMember[]
+     */
+    public function getEventMembers(): Collection
+    {
+        return $this->eventMembers;
+    }
+
+    public function addEventMember(EventMember $eventMember): self
+    {
+        if (!$this->eventMembers->contains($eventMember)) {
+            $this->eventMembers[] = $eventMember;
+            $eventMember->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventMember(EventMember $eventMember): self
+    {
+        if ($this->eventMembers->removeElement($eventMember)) {
+            // set the owning side to null (unless already changed)
+            if ($eventMember->getEvent() === $this) {
+                $eventMember->setEvent(null);
+            }
+        }
+
+        return $this;
     }
 }

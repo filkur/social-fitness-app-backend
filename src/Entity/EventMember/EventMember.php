@@ -3,6 +3,7 @@
 namespace App\Entity\EventMember;
 
 use App\Entity\Activity\Activity;
+use App\Entity\Event\Event;
 use App\Entity\Traits\Timestamp\Timestamp;
 use App\Entity\Traits\Timestamp\TimestampInterface;
 use App\Entity\Traits\UlidTrait;
@@ -43,6 +44,17 @@ class EventMember implements TimestampInterface
      */
     private Collection $activities;
 
+    /**
+     * @ORM\ManyToOne(
+     *     targetEntity=Event::class,
+     *     inversedBy="eventMembers"
+     * )
+     * @ORM\JoinColumn(
+     *     nullable=false
+     * )
+     */
+    private Event $event;
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
@@ -81,6 +93,18 @@ class EventMember implements TimestampInterface
                 $activity->setEventMember(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): self
+    {
+        $this->event = $event;
 
         return $this;
     }
