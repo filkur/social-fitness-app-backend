@@ -9,7 +9,13 @@ use App\Validator\PropertySetted\IsIdSet;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Post\Post;
+use App\Validator\Comment\IsLoggedCommentCreator as creatorAssert;
 
+/**
+ * @creatorAssert(
+ *     groups={"comment:update"}
+ * )
+ */
 class CommentInput
 {
     /**
