@@ -15,6 +15,7 @@ use App\Utils\DataHelper\MethodHelper;
 use App\Utils\ReadStorage\MutatorAfterReadStorage;
 use App\Utils\User\UserGetter;
 use Psr\Container\ContainerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class GroupMemberPostValidateTransformer extends AbstractValidateTransformer
@@ -53,6 +54,15 @@ class GroupMemberPostValidateTransformer extends AbstractValidateTransformer
         $invitation = $this->invitationRepository->findOneBy([
             'code' => $payload->code,
         ]);
+
+        if ($invitation === null)
+        {
+            return new JsonResponse([
+                "violations" => [
+                    "message" => "Invitation not found"
+                ]
+            ], 404);
+        }
 
         /** @var Group $group */
         $group = $invitation->getGroup();
