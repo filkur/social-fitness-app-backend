@@ -27,6 +27,9 @@ class GroupMemberDataTransformer implements DataTransformerInterface
             $object->getAssignedAt()
         );
 
+        $output->groupId = $object->getGroup()
+                                  ->getIdString();
+
         return $output;
     }
 
