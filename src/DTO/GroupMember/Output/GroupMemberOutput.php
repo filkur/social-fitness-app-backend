@@ -23,4 +23,9 @@ class GroupMemberOutput
      * @Groups({"groupMember:base"})
      */
     public string $assignedAt;
+
+    /**
+     * @Groups({"groupMember:base"})
+     */
+    public string $groupId;
 }
