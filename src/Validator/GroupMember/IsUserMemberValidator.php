@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Validator\GroupMember;
 
-use App\Entity\Group\Group;
 use App\Entity\GroupMember\GroupMember;
 use App\Entity\Invitation\Invitation;
 use App\Entity\User\User;
@@ -33,24 +32,24 @@ class IsUserMemberValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        /** @var Group $group */
-        $group
-            = /** @var Invitation $invitation */
+        /** @var Invitation $invitation */
         $invitation = $this->invitationRepository->findOneBy([
             'code' => $value,
-        ])
-                                                 ->getGroup();
+        ]);
 
-        /** @var User $user */
-        $user = $this->userGetter->get();
+        if ($invitation !== null){
+            $group = $invitation->getGroup();
+            /** @var User $user */
+            $user = $this->userGetter->get();
 
-        $assignedUser = $group->getGroupMembers()
-                              ->filter(function (GroupMember $groupMember) use ($user) {
-                                  return $groupMember->getUser() === $user;
-                              });
+            $assignedUser = $group->getGroupMembers()
+                                  ->filter(function (GroupMember $groupMember) use ($user) {
+                                      return $groupMember->getUser() === $user;
+                                  });
 
-        if (! $assignedUser->isEmpty()) {
-            $this->context->addViolation($constraint->message);
+            if (! $assignedUser->isEmpty()) {
+                $this->context->addViolation($constraint->message);
+            }
         }
     }
 }
