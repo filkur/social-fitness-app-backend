@@ -19,6 +19,7 @@ class EventDataTransformer implements DataTransformerInterface
         $output = new EventOutput();
 
         $output->id = $object->getIdString();
+        $output->isActive = $object->getIsActive();
         $output->name = $object->getName();
         $output->description = $object->getDescription();
         $output->pointGoal = $object->getPointGoal();
@@ -39,6 +40,6 @@ class EventDataTransformer implements DataTransformerInterface
 
     public function supportsTransformation($data, string $to, array $context = []): bool
     {
-        return $data === Event::class && $to === EventOutput::class;
+        return $to === EventOutput::class && $data instanceof Event;
     }
 }

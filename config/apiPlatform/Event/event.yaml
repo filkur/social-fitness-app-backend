@@ -19,7 +19,7 @@ App\Entity\Event\Event:
             path: /event/{id}
             normalization_context:
                 groups: [
-                    'event:collection',
+                    'event:item',
                     'groupMember:base'
                 ]
             openapi_context:
@@ -42,7 +42,7 @@ App\DTO\Event\Input\EventInput:
         patch:
             path: /event/{id}
             denormalization_context:
-                groups: [ 'event:patch', 'Default' ]
+                groups: [ 'event:patch' ]
             validation_groups: [ 'event:update' ]
             openapi_context:
                 tags:
@@ -50,7 +50,23 @@ App\DTO\Event\Input\EventInput:
     collectionOperations:
         post:
             path: /event
+            denormalization_context:
+                groups: [ 'event:post' ]
             validation_groups: ['event:create']
             openapi_context:
                 tags:
                     - Event
+App\DTO\Event\Input\EventActiveInput:
+    attributes:
+        formats: [ 'json' ]
+        output: App\DTO\Event\Output\EventOutput
+    properties:
+        id:
+            identifier: true
+    itemOperations:
+        patch:
+            path: /event/{id}/active
+            openapi_context:
+                tags:
+                    - Event
+    collectionOperations: {}

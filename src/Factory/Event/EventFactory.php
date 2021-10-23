@@ -6,6 +6,7 @@ namespace App\Factory\Event;
 
 use App\Entity\Event\Event;
 use App\Entity\Group\Group;
+use App\Utils\Date\DateHelper;
 
 class EventFactory
 {
@@ -20,6 +21,7 @@ class EventFactory
         string $endDate,
         string $eventType
     ): Event {
+
         return Event::create(
             $group,
             $name,
@@ -27,8 +29,8 @@ class EventFactory
             $pointGoal,
             $pointPerRep,
             $pointPerMinute,
-            $startDate,
-            $endDate,
+            DateHelper::createDateFromString($startDate),
+            DateHelper::createDateFromString($endDate),
             $eventType
         );
     }

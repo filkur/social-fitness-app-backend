@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\DataProvider\Event;
 
 use App\DataProvider\Utils\AllDataProvider;
+use App\DTO\Event\Input\EventActiveInput;
 use App\DTO\Event\Input\EventInput;
 use App\Entity\Event\Event;
 use App\Repository\Event\EventRepository;
@@ -28,7 +29,7 @@ class EventDataProvider extends AllDataProvider
 
     protected function isValidResourceClass(string $resource): bool
     {
-        return $resource === EventInput::class || $resource === Event::class;
+        return $resource === EventInput::class || $resource ===EventActiveInput::class || $resource === Event::class;
     }
 
     /**

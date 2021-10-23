@@ -16,6 +16,11 @@ class EventOutput
     /**
      * @Groups({"event:collection", "event:item"})
      */
+    public bool $isActive;
+
+    /**
+     * @Groups({"event:collection", "event:item"})
+     */
     public string $name;
 
     /**

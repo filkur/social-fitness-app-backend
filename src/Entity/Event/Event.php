@@ -145,8 +145,8 @@ class Event implements TimestampInterface
         int $pointGoal,
         int $pointPerRep,
         int $pointPerMinute,
-        string $startDate,
-        string $endDate,
+        DateTimeImmutable $startDate,
+        DateTimeImmutable $endDate,
         string $eventType
     ): self {
         $self = new self();
@@ -157,16 +157,9 @@ class Event implements TimestampInterface
         $self->setPointGoal($pointGoal);
         $self->setPointsPerRep($pointPerRep);
         $self->setPointsPerMinute($pointPerMinute);
-        $self->setStartDate(
-            DateHelper::createDateFromString(
-                $startDate
-            )
-        );
-        $self->setEndDate(
-            DateHelper::createDateFromString(
-                $endDate
-            )
-        );
+        $self->setStartDate($startDate);
+        $self->setEndDate($endDate);
+
         $self->setEventType($eventType);
 
         $group->addEvent($self);
@@ -351,7 +344,7 @@ class Event implements TimestampInterface
 
     public function addEventMember(EventMember $eventMember): self
     {
-        if (!$this->eventMembers->contains($eventMember)) {
+        if (! $this->eventMembers->contains($eventMember)) {
             $this->eventMembers[] = $eventMember;
             $eventMember->setEvent($this);
         }
@@ -369,5 +362,23 @@ class Event implements TimestampInterface
         }
 
         return $this;
+    }
+
+    public function update(
+        string $name,
+        string $description,
+        int $pointGoal,
+        int $pointPerRep,
+        int $pointPerMinute,
+        DateTimeImmutable $startDate,
+        DateTimeImmutable $endDate
+    ) {
+        $this->setName($name);
+        $this->setDescription($description);
+        $this->setPointGoal($pointGoal);
+        $this->setPointsPerRep($pointPerRep);
+        $this->setPointsPerMinute($pointPerMinute);
+        $this->setStartDate($startDate);
+        $this->setEndDate($endDate);
     }
 }

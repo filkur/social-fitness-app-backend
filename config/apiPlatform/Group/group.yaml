@@ -28,7 +28,8 @@ App\Entity\Group\Group:
                         'user:base',
                         'post:collection',
                         'groupMember:base',
-                        'invitation:base'
+                        'invitation:base',
+                        'event:collection'
                 ]
             openapi_context:
                 tags:
