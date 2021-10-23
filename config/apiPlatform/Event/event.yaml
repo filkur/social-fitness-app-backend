@@ -20,7 +20,7 @@ App\Entity\Event\Event:
             normalization_context:
                 groups: [
                     'event:item',
-                    'groupMember:base'
+                    'eventMember:base',
                 ]
             openapi_context:
                 tags:
