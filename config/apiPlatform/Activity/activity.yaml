@@ -1,0 +1,42 @@
+#read
+App\Entity\Activity\Activity:
+    attributes:
+        formats: [ 'json' ]
+        output: App\DTO\Activity\Output\ActivityOutput
+    properties:
+        id:
+            identifier: true
+    normalization_context:
+        groups: ['activity:base']
+    collectionOperations:
+        get:
+            path: /activity
+            openapi_context:
+                tags:
+                    - Activity
+    itemOperations:
+        get:
+            path: /activity/{id}
+            openapi_context:
+                tags:
+                    - Activity
+        delete:
+            path: /activity/{id}
+            openapi_context:
+                tags:
+                    - Activity
+#write
+App\DTO\Activity\Input\ActivityInput:
+    attributes:
+        formats: [ 'json' ]
+        output: App\DTO\Activity\Output\ActivityOutput
+    properties:
+        id:
+            identifier: true
+    collectionOperations:
+        post:
+            path: /activity
+            openapi_context:
+                tags:
+                    - Activity
+    itemOperations: {}

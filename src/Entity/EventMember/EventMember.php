@@ -55,9 +55,24 @@ class EventMember implements TimestampInterface
      */
     private Event $event;
 
-    public function __construct()
+    private function __construct()
     {
         $this->activities = new ArrayCollection();
+    }
+
+    public static function create(
+        User $loggedUser,
+        Event $event
+    ): self {
+        $self = new self();
+
+        $self->setUser($loggedUser);
+        $self->setEvent($event);
+
+        $loggedUser->addEventMember($self);
+        $event->addEventMember($self);
+
+        return $self;
     }
 
     public function getUser(): User

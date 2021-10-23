@@ -6,4 +6,9 @@ namespace App\DTO\Activity\Input;
 
 class ActivityInput
 {
+    public string $eventId;
+
+    public string $name;
+
+    public int $value;
 }

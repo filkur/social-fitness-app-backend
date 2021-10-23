@@ -27,6 +27,14 @@ class Activity implements TimestampInterface
     private int $value;
 
     /**
+     * @ORM\Column(
+     *     type="string",
+     *     nullable=false
+     * )
+     */
+    private string $name;
+
+    /**
      * @ORM\ManyToOne(
      *     targetEntity=EventMember::class,
      *     inversedBy="activities"
@@ -48,6 +56,24 @@ class Activity implements TimestampInterface
      */
     private Event $event;
 
+    public static function create(
+        string $name,
+        int $value,
+        EventMember $eventMember,
+        Event $event
+    ): self {
+        $self = new self();
+
+        $self->setName($name);
+        $self->setValue($value);
+        $self->setEventMember($eventMember);
+        $self->setEvent($event);
+
+        $eventMember->addActivity($self);
+        $event->addActivity($self);
+
+        return $self;
+    }
 
     public function getEventMember(): ?EventMember
     {
@@ -71,5 +97,25 @@ class Activity implements TimestampInterface
         $this->event = $event;
 
         return $this;
+    }
+
+    public function getValue(): int
+    {
+        return $this->value;
+    }
+
+    public function setValue(int $value): void
+    {
+        $this->value = $value;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
     }
 }

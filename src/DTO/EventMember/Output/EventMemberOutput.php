@@ -18,4 +18,9 @@ class EventMemberOutput
      * @Groups({"eventMember:base"})
      */
     public ?array $activities;
+
+    /**
+     * @Groups({"eventMember:base"})
+     */
+    public int $totalScore = 0;
 }

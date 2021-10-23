@@ -23,7 +23,6 @@ class Event implements TimestampInterface
     use UlidTrait;
     use Timestamp;
 
-    private const EVENT_TYPE_ALL       = 'ALL';
     private const EVENT_TYPE_REP       = 'REP';
     private const EVENT_TYPE_TIME      = 'TIME';
     private const EVENT_TYPE_LESS_TIME = 'LESS_TIME';
@@ -175,12 +174,6 @@ class Event implements TimestampInterface
     public function setEventType(string $eventType): void
     {
         switch ($eventType) {
-            case self::EVENT_TYPE_ALL:
-            {
-                $this->eventType = self::EVENT_TYPE_ALL;
-
-                return;
-            }
             case self::EVENT_TYPE_REP:
             {
                 $this->eventType = self::EVENT_TYPE_REP;
