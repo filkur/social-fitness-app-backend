@@ -20,7 +20,6 @@ class GroupMemberInput
      *     max=8,
      *     min=8
      * )
-     * @isInvitationExistAssert()
      * @isUserMemberAssert()
      * @isLoggedInGroupOwnerAssert()
      */
