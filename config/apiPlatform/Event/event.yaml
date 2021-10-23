@@ -1,0 +1,74 @@
+#read
+App\Entity\Event\Event:
+    attributes:
+        formats: [ 'json' ]
+        output: App\DTO\Event\Output\EventOutput
+    properties:
+        id:
+            identifier: true
+    collectionOperations:
+        get:
+            path: /event
+            normalization_context:
+                groups: [ 'event:collection' ]
+            openapi_context:
+                tags:
+                    - Event
+    itemOperations:
+        get:
+            path: /event/{id}
+            normalization_context:
+                groups: [
+                    'event:item',
+                    'eventMember:base',
+                    'activity:base',
+                    'user:base'
+                ]
+            openapi_context:
+                tags:
+                    - Event
+        delete:
+            path: /event/{id}
+            openapi_context:
+                tags:
+                    - Event
+#write
+App\DTO\Event\Input\EventInput:
+    attributes:
+        formats: [ 'json' ]
+        output: App\DTO\Event\Output\EventOutput
+    properties:
+        id:
+            identifier: true
+    itemOperations:
+        patch:
+            path: /event/{id}
+            denormalization_context:
+                groups: [ 'event:patch' ]
+            validation_groups: [ 'event:update' ]
+            openapi_context:
+                tags:
+                    - Event
+    collectionOperations:
+        post:
+            path: /event
+            denormalization_context:
+                groups: [ 'event:post' ]
+            validation_groups: ['event:create']
+            openapi_context:
+                tags:
+                    - Event
+App\DTO\Event\Input\EventActiveInput:
+    attributes:
+        formats: [ 'json' ]
+        output: App\DTO\Event\Output\EventOutput
+    properties:
+        id:
+            identifier: true
+    itemOperations:
+        patch:
+            path: /event/{id}/active
+            openapi_context:
+                tags:
+                    - Event
+    collectionOperations: {}

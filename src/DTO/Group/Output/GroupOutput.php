@@ -46,6 +46,11 @@ class GroupOutput
     public ?array $posts;
 
     /**
+     * @Groups({"group:item", })
+     */
+    public ?array $events;
+
+    /**
      * @Groups({"group:collection", "group:item"})
      */
     public string $createdAt;

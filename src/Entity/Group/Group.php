@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Group;
 
+use App\Entity\Event\Event;
 use App\Entity\Invitation\Invitation;
 use App\Entity\Post\Post;
 use App\Entity\Traits\Timestamp\Timestamp;
@@ -82,10 +83,21 @@ class Group implements TimestampInterface
      */
     private Collection $posts;
 
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity=Event::class,
+     *     mappedBy="group",
+     *     orphanRemoval=true,
+     *     cascade={"persist", "remove"}
+     * )
+     */
+    private Collection $events;
+
     public function __construct()
     {
         $this->groupMembers = new ArrayCollection();
         $this->posts = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public static function create(
@@ -191,6 +203,36 @@ class Group implements TimestampInterface
             // set the owning side to null (unless already changed)
             if ($post->getGroup() === $this) {
                 $post->setGroup(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setGroup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getGroup() === $this) {
+                $event->setGroup(null);
             }
         }
 

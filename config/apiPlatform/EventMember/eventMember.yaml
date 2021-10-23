@@ -1,0 +1,31 @@
+#read
+App\Entity\EventMember\EventMember:
+    attributes:
+        formats: [ 'json' ]
+        output: App\DTO\EventMember\Output\EventMemberOutput
+    properties:
+        id:
+            identifier: true
+    normalization_context:
+        groups: [
+                'eventMember:base',
+                'activity:base',
+                'user:base'
+        ]
+    collectionOperations:
+        get:
+            path: /eventMember
+            openapi_context:
+                tags:
+                    - EventMember
+    itemOperations:
+        get:
+            path: /eventMember/{id}
+            openapi_context:
+                tags:
+                    - EventMember
+        delete:
+            path: /eventMember/{id}
+            openapi_context:
+                tags:
+                    - EventMember
