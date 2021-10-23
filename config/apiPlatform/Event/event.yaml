@@ -21,7 +21,8 @@ App\Entity\Event\Event:
                 groups: [
                     'event:item',
                     'eventMember:base',
-                    'activity:base'
+                    'activity:base',
+                    'user:base'
                 ]
             openapi_context:
                 tags:

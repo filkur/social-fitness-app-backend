@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20211022220116 extends AbstractMigration
+final class Version20211023140315 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,7 +20,7 @@ final class Version20211022220116 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE Activity (id UUID NOT NULL, event_id UUID NOT NULL, value INT NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, eventMember_id UUID NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE Activity (id UUID NOT NULL, event_id UUID NOT NULL, value INT NOT NULL, name VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, eventMember_id UUID NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_55026B0C9F4AFDED ON Activity (eventMember_id)');
         $this->addSql('CREATE INDEX IDX_55026B0C71F7E88B ON Activity (event_id)');
         $this->addSql('COMMENT ON COLUMN Activity.id IS \'(DC2Type:ulid)\'');
