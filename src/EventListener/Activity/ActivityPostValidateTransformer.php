@@ -11,6 +11,7 @@ use App\EventListener\AbstractValidateTransformer;
 use App\Factory\Activity\ActivityFactory;
 use App\Factory\EventMember\EventMemberFactory;
 use App\Repository\Event\EventRepository;
+use App\Repository\EventMember\EventMemberRepository;
 use App\Utils\DataHelper\MethodHelper;
 use App\Utils\ReadStorage\MutatorAfterReadStorage;
 use App\Utils\User\UserGetter;
@@ -23,15 +24,19 @@ class ActivityPostValidateTransformer extends AbstractValidateTransformer
 
     private EventRepository $eventRepository;
 
+    private EventMemberRepository $eventMemberRepository;
+
     public function __construct(
         MutatorAfterReadStorage $mutatorAfterReadStorage,
         ContainerInterface $container,
         UserGetter $userGetter,
-        EventRepository $eventRepository
+        EventRepository $eventRepository,
+        EventMemberRepository $eventMemberRepository
     ) {
         parent::__construct($mutatorAfterReadStorage, $container);
         $this->userGetter = $userGetter;
         $this->eventRepository = $eventRepository;
+        $this->eventMemberRepository = $eventMemberRepository;
     }
 
     protected function validPayload(object $payload): bool
@@ -55,10 +60,17 @@ class ActivityPostValidateTransformer extends AbstractValidateTransformer
         /** @var Event $event */
         $event = $this->eventRepository->find($payload->eventId);
 
-        $eventMember = EventMemberFactory::createFromParams(
-            $loggedUser,
-            $event
-        );
+        $eventMember = $this->eventMemberRepository->findOneBy([
+            'event' => $event,
+            'user'  => $loggedUser,
+        ]);
+
+        if ($eventMember === null) {
+            $eventMember = EventMemberFactory::createFromParams(
+                $loggedUser,
+                $event
+            );
+        }
 
         return ActivityFactory::createFromParams(
             $payload->name,
