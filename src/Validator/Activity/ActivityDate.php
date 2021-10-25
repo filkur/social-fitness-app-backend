@@ -11,7 +11,9 @@ use Symfony\Component\Validator\Constraint;
  */
 class ActivityDate extends Constraint
 {
-    public string $message = "the event has ended";
+    public string $startErrorMessage = "The event not started yet";
+
+    public string $endErrorMessage = "The event has ended";
 
     public function getTargets()
     {

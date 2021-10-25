@@ -31,8 +31,15 @@ class ActivityDateValidator extends ConstraintValidator
 
         $currentDate = new DateTimeImmutable();
 
+        if ($currentDate < $event->getStartDate()) {
+            $this->context->buildViolation($constraint->startErrorMessage)
+                          ->setCode('409')
+                          ->addViolation()
+            ;
+        }
+
         if ($currentDate > $event->getEndDate()) {
-            $this->context->buildViolation($constraint->message)
+            $this->context->buildViolation($constraint->endErrorMessage)
                           ->setCode('403')
                           ->addViolation()
             ;

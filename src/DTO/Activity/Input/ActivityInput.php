@@ -25,6 +25,9 @@ class ActivityInput
      * @Assert\Type(
      *     type="string"
      * )
+     * @Assert\Length(
+     *     max=40
+     * )
      */
     public string $name;
 
