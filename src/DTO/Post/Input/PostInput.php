@@ -51,7 +51,7 @@ class PostInput
      * )
      * @Assert\Length(
      *     groups={"post:create", "post:update"},
-     *     max=40
+     *     max=300
      * )
      */
     public string $content;

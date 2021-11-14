@@ -22,7 +22,7 @@ class Comment implements TimestampInterface
     /**
      * @ORM\Column(
      *     type="string",
-     *     length=200
+     *     length=300
      * )
      */
     private string $content;

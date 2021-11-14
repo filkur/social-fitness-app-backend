@@ -1,4 +1,8 @@
 doctrine:
     dbal:
-        # "TEST_TOKEN" is typically set by ParaTest
-        dbname_suffix: '_test%env(default::TEST_TOKEN)%'
+        default_connection: postgres
+        connections:
+            postgres:
+                url: '%env(resolve:DATABASE_URL)%'
+                driver: 'pdo_pgsql'
+                charset: utf8
