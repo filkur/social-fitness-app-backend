@@ -51,7 +51,7 @@ class CommentInput
      * )
      * @Assert\Length(
      *     groups={"comment:create", "comment:update"},
-     *     max=40
+     *     max=300
      * )
      */
     public string $content;

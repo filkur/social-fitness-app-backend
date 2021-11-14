@@ -24,7 +24,7 @@ class Post implements TimestampInterface
     /**
      * @ORM\Column(
      *     type="string",
-     *     length=400
+     *     length=300
      * )
      */
     private ?string $content;
