@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20211023140315 extends AbstractMigration
+final class Version20211117152627 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -28,7 +28,7 @@ final class Version20211023140315 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN Activity.created_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN Activity.updated_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN Activity.eventMember_id IS \'(DC2Type:ulid)\'');
-        $this->addSql('CREATE TABLE Comment (id UUID NOT NULL, owner_id UUID NOT NULL, post_id UUID NOT NULL, content VARCHAR(200) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE Comment (id UUID NOT NULL, owner_id UUID NOT NULL, post_id UUID NOT NULL, content VARCHAR(300) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_5BC96BF07E3C61F9 ON Comment (owner_id)');
         $this->addSql('CREATE INDEX IDX_5BC96BF04B89032C ON Comment (post_id)');
         $this->addSql('COMMENT ON COLUMN Comment.id IS \'(DC2Type:ulid)\'');
@@ -44,7 +44,7 @@ final class Version20211023140315 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN Event.end_date IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN Event.created_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN Event.updated_at IS \'(DC2Type:datetime_immutable)\'');
-        $this->addSql('CREATE TABLE Post (id UUID NOT NULL, group_id UUID DEFAULT NULL, owner_id UUID NOT NULL, content VARCHAR(400) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE Post (id UUID NOT NULL, group_id UUID DEFAULT NULL, owner_id UUID NOT NULL, content VARCHAR(300) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_FAB8C3B3FE54D947 ON Post (group_id)');
         $this->addSql('CREATE INDEX IDX_FAB8C3B37E3C61F9 ON Post (owner_id)');
         $this->addSql('COMMENT ON COLUMN Post.id IS \'(DC2Type:ulid)\'');
