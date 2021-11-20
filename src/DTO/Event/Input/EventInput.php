@@ -106,36 +106,36 @@ class EventInput
     public int $pointPerMinute = 0;
 
     /**
-     * @Groups({"event:post", "event:patch"})
+     * @Groups({"event:post"})
      * @Assert\NotBlank(
-     *     groups={"event:create", "event:update"}
+     *     groups={"event:create"}
      * )
      * @Assert\Type(
-     *     groups={"event:create", "event:update"},
+     *     groups={"event:create"},
      *     type="string"
      * )
      */
     public string $startDate;
 
     /**
-     * @Groups({"event:post", "event:patch"})
+     * @Groups({"event:post"})
      * @Assert\NotBlank(
-     *     groups={"event:create", "event:update"}
+     *     groups={"event:create"}
      * )
      * @Assert\Type(
-     *     groups={"event:create", "event:update"},
+     *     groups={"event:create"},
      *     type="string"
      * )
      */
     public string $endDate;
 
     /**
-     * @Groups({"event:post", "event:patch"})
+     * @Groups({"event:post"})
      * @Assert\NotBlank(
-     *     groups={"event:create", "event:update"}
+     *     groups={"event:create"}
      * )
      * @Assert\Type(
-     *     groups={"event:create", "event:update"},
+     *     groups={"event:create"},
      *     type="string"
      * )
      */

@@ -37,8 +37,6 @@ class EventPatchValidateTransformer extends AbstractValidateTransformer
             $payload->pointGoal,
             $payload->pointPerRep,
             $payload->pointPerMinute,
-            DateHelper::createDateFromString($payload->startDate),
-            DateHelper::createDateFromString($payload->endDate),
         );
 
         return $event;

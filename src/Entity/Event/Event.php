@@ -362,16 +362,12 @@ class Event implements TimestampInterface
         string $description,
         int $pointGoal,
         int $pointPerRep,
-        int $pointPerMinute,
-        DateTimeImmutable $startDate,
-        DateTimeImmutable $endDate
+        int $pointPerMinute
     ) {
         $this->setName($name);
         $this->setDescription($description);
         $this->setPointGoal($pointGoal);
         $this->setPointsPerRep($pointPerRep);
         $this->setPointsPerMinute($pointPerMinute);
-        $this->setStartDate($startDate);
-        $this->setEndDate($endDate);
     }
 }
