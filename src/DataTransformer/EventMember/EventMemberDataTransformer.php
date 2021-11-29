@@ -46,10 +46,12 @@ class EventMemberDataTransformer implements DataTransformerInterface
                 }
                 break;
             default:
+                $activityValue = [];
                 foreach ($object->getActivities() as $activity) {
                     /** @var Activity $activity */
-                    $output->totalScore += $activity->getValue();
+                    $activityValue [] = $activity->getValue();
                 }
+                $output->totalScore = min($activityValue);
                 break;
         }
 
